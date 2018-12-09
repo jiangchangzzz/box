@@ -1,8 +1,9 @@
 {
   "pages": [
     "pages/index/main",
-    "pages/logs/main",
-    "pages/counter/main"
+    "pages/create/main",
+    "pages/work/main",
+    "pages/sound/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

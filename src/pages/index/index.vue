@@ -1,105 +1,105 @@
 <template>
-  <div class="container" @click="clickHandle('test click', $event)">
-
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
+  <div class="container">
+    <div class="header">
+      <h1 class="header-title">这里是标题</h1>
+      <template v-if="userInfo">
+        <img class="header-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
+        <p class="header-nickname">{{userInfo.nickName}}</p>
+      </template>
+      
     </div>
-
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
+    <div class="main">
+      <ul class="main-list">
+        <li>
+          <a class="main-button" href="/pages/create/main">开始创作</a>
+        </li>
+        <li>
+          <a class="main-button" href="/pages/work/main">我的作品</a>
+        </li>
+        <li>
+          <a class="main-button" href="/pages/sound/main">解锁更多音效</a>
+        </li>
+        <li>
+          <button class="main-button" open-type="share">召唤好友加入</button>
+        </li>
+      </ul>
     </div>
-
-    <form class="form-container">
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
   </div>
 </template>
 
 <script>
-import card from '@/components/card'
+import { shareIndex, callFriend } from "../../utils/index";
+import globalStore from '../../stores/global-store.js';
 
 export default {
-  data () {
-    return {
-      motto: 'Hello World',
-      userInfo: {}
+  computed: {
+    userInfo(){
+      return globalStore.state.userInfo;
     }
   },
-
-  components: {
-    card
-  },
-
-  methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
-    },
-    getUserInfo () {
-      // 调用登录接口
-      wx.login({
-        success: () => {
-          wx.getUserInfo({
-            success: (res) => {
-              this.userInfo = res.userInfo
-            }
-          })
-        }
-      })
-    },
-    clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
+  onShareAppMessage: function(res) {
+    if (res.from === "button") {
+      return callFriend(123);
+    } else {
+      return shareIndex();
     }
-  },
-
-  created () {
-    // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
   }
-}
+};
 </script>
 
 <style scoped>
-.userinfo {
+.container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 40%;
+  border-bottom: 1px solid #ccc;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.header-avatar{
+  width: 300rpx;
+  height: 300rpx;
+  margin-top: 20rpx;
 }
 
-.usermotto {
-  margin-top: 150px;
+.header-nickname{
+  margin-top: 20rpx;
 }
 
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
+.main {
+  box-sizing: border-box;
+  height: 60%;
+  padding: 100rpx 0;
+}
+
+.main-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+.main-button {
+  width: 500rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #fff;
   border: 1px solid #ccc;
-}
-
-.counter {
-  display: inline-block;
-  margin: 10px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
+  border-radius: 8rpx;
 }
 </style>
+
