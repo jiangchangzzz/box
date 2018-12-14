@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import sounds from '../data/sounds.json';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userInfo: null
+    userInfo: null,
+    sounds: sounds
   },
   mutations: {
     setUserInfo(state, payload) {
