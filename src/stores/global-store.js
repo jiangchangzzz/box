@@ -5,11 +5,30 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userInfo: null
+    userInfo: null,
+    createAudioTypeInfo: [], //音轨类型
+    createAudioTrackInfo: {} //音轨，二维数组
   },
   mutations: {
     setUserInfo(state, payload) {
       state.userInfo = payload.userInfo;
+    },
+    addCreateAudioType(state, payload) {
+      //let typeInfo = state.createAudioTypeInfo.slice(0);
+      //typeInfo.push(payload.newAudio);
+      //state.createAudioTypeInfo = typeInfo;
+      state.createAudioTypeInfo.push(payload.newAudio);
+      state.createAudioTrackInfo[payload.newAudio.id] = {
+        id: payload.newAudio.id,
+        list: new Array(payload.newAudio)
+      };
+      console.log("state: ",state.createAudioTypeInfo)
+      // state.createAudioTrackInfo[payload.newAudio.id].push(payload.newAudio);
+    },
+    addCreateAudioTrack(state, payload){
+      console.log("add track:", payload)
+      state.createAudioTrackInfo[payload.id].list.push(payload.newAudio);
+      console.log("state:", state)
     }
   },
   actions: {
@@ -40,6 +59,9 @@ export default new Vuex.Store({
           }
         }
       })
+    },
+    onaddCreateAudioTrack(context, payload){
+      context.commit("addCreateAudioTrack", payload);
     }
   }
 });
