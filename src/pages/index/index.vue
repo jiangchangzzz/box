@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { shareIndex, callFriend } from "../../utils/index";
+import { shareIndex } from "../../utils/index";
 import globalStore from '../../stores/global-store.js';
 
 export default {

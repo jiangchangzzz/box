@@ -1,19 +1,19 @@
 <template>
   <ul class="list">
-      <li class="list-item" v-for="(sound, index) in sounds" :key="index">
+      <li class="list-item" v-for="(sound, index) in sounds" :key="sound.id">
         <div class="item-left">
           <img class="item-icon" :src="sound.icon"/>
           <div class="item-text">
             <p class="item-text-name">{{sound.name}}</p>
-            <p class="item-text-desc">{{sound.desc}}</p>
+            <p class="item-text-desc">{{sound.desc || sound.name}}</p>
           </div>
         </div>
         <div class="item-right">
-          <div class="right-listen" @click="handlePlay(index)">
+          <div class="right-block" @click="handlePlay(index)">
             <img class="item-img" :src="playImg" v-show="index!==playIndex"/>
             <img class="item-img" :src="pauseImg" v-show="index===playIndex"/>
           </div>
-          <div class="right-add" @click="handleAdd(index)">
+          <div class="right-block" @click="handleAdd(index)">
             <template v-if="!sound.isLock">
               <img class="item-img" :src="addImg" v-show="isAbledAdd[index]"/>
               <img class="item-img" :src="minusImg" v-show="!isAbledAdd[index]"/>
@@ -155,8 +155,13 @@ export default {
   border-radius: 50%;
 }
 
-.right-listen{
-  margin-right: 32rpx;
+.right-block{
+  display: flex;
+  align-items: center;
+}
+
+.right-block:last-child{
+  margin-left: 32rpx;
 }
 
 </style>
