@@ -2,10 +2,10 @@
   <div class="container">
     <div class="header">
       <h1 class="header-title">这里是标题</h1>
-      <template v-if="userInfo">
+      <!-- <template v-if="userInfo">
         <img class="header-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
         <p class="header-nickname">{{userInfo.nickName}}</p>
-      </template>
+      </template> -->
       
     </div>
     <div class="main">
@@ -38,11 +38,7 @@ export default {
     }
   },
   onShareAppMessage: function(res) {
-    if (res.from === "button") {
-      return callFriend(123);
-    } else {
       return shareIndex();
-    }
   }
 };
 </script>
@@ -50,7 +46,7 @@ export default {
 <style scoped>
 .container {
   height: 100vh;
-  overflow: hidden;
+  background-color: #000;
 }
 
 .header {
@@ -59,8 +55,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 40%;
-  border-bottom: 1px solid #ccc;
+  height: 20%;
 }
 
 .header-title {
@@ -80,8 +75,8 @@ export default {
 
 .main {
   box-sizing: border-box;
-  height: 60%;
-  padding: 100rpx 0;
+  height: 80%;
+  padding: 80rpx 0;
 }
 
 .main-list {
@@ -93,13 +88,14 @@ export default {
 }
 
 .main-button {
-  width: 500rpx;
-  height: 100rpx;
-  line-height: 100rpx;
+  width: 560rpx;
+  height: 160rpx;
+  line-height: 160rpx;
   text-align: center;
   background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8rpx;
+  border-radius: 40rpx;
+  font-size: 36rpx;
+  font-weight: bold;
 }
 </style>
 

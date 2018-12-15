@@ -10,7 +10,7 @@ export const callFriend = (userId) => {
 // 分享主页
 export const shareIndex = () => {
   return {
-    title: "box 分享主页",
+    title: "Beats Maker",
     path: "/pages/index/main",
     imageUrl: "../../static/box.png"
   }

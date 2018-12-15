@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import sounds from '../data/sounds.json';
 
 Vue.use(Vuex);
 
@@ -7,7 +8,8 @@ export default new Vuex.Store({
   state: {
     userInfo: null,
     createAudioTypeInfo: [], //音轨类型
-    createAudioTrackInfo: {} //音轨，二维数组
+    createAudioTrackInfo: {}, //音轨，二维数组
+    sounds: sounds
   },
   mutations: {
     setUserInfo(state, payload) {
