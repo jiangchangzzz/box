@@ -11,7 +11,8 @@ export default new Vuex.Store({
     createAudioTypeInfo: [], //音轨类型
     createAudioTrackInfo: {}, //音轨，二维数组
     sounds: audioConfig,
-    works: works
+    works: works,
+    audios: {}
   },
   mutations: {
     setUserInfo(state, payload) {
@@ -30,12 +31,13 @@ export default new Vuex.Store({
       // state.createAudioTrackInfo[payload.newAudio.id].push(payload.newAudio);
     },
     addCreateAudioTrack(state, payload){
-      console.log("add track:", payload)
-      state.createAudioTrackInfo[payload.id].list.splice(payload.index,1,payload.newAudio);
-      console.log("state:", state)
+      state.createAudioTrackInfo[payload.id].list.push(payload.newAudio);
     },
     updateCreateAudioTrack(state, payload){
-
+      state.createAudioTrackInfo[payload.id].list.splice(payload.index,1,payload.newAudio)
+    },
+    addAudios(state, payload){
+      state.audios = {...state.audios, [payload.id]: payload.newAudio}
     }
   },
   actions: {
