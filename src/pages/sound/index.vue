@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <nav class="nav">
-      <div :class="['nav-item', {active: soundType === 0}]" @click="changeSoundType(0)">预设声音</div>
-      <div :class="['nav-item', {active: soundType === 1}]" @click="changeSoundType(1)">我的声音</div>
+      <div :class="['nav-item', {active: soundType === 0}]" @click="changeSoundType(0)">预设音效</div>
+      <div :class="['nav-item', {active: soundType === 1}]" @click="changeSoundType(1)">我的音效</div>
     </nav>
     <div class="list"> 
-      <SoundList :sounds="currentSounds"/>
+      <SoundList v-if="currentSounds.length" :data="currentSounds"/>
+      <p class="list-none" v-else>当前没有更多音效，请到<a class="list-none-link" href="/pages/work/main">我的作品</a>上传~</p>
     </div>
   </div>
 </template>
@@ -39,7 +40,7 @@ export default {
 <style scoped>
 .container{
   min-height: 100vh;
-  background-color: #000;
+  background-color: #513CA0;
 }
 
 .nav{
@@ -54,7 +55,8 @@ export default {
   text-align: center;
   font-size: 32rpx;
   font-weight: bold;
-  background-color: #979797;
+  color: #513CA0;
+  background-color: #fff;
   border-radius: 100rpx 0 0 100rpx;
 }
 
@@ -67,11 +69,23 @@ export default {
 }
 
 .nav-item.active{
-  background-color: #D8D8D8;
+  color: #fff;
+  background-color: #FF4646;
 }
 
 .list{
   margin-top: 56rpx;
+}
+
+.list-none{
+  text-align: center;
+  font-size: 32rpx;
+  color: #fff;
+}
+
+.list-none-link{
+  display: inline;
+  text-decoration: underline;
 }
 </style>
 

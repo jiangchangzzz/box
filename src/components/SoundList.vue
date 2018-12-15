@@ -9,8 +9,17 @@
           </div>
         </div>
         <div class="item-right">
-          <div class="item-listen" @click="handlePlay(index)">{{index===playIndex ? 1 : 0}}</div>
-          <div class="item-listen" @click="handleAdd(index)">{{currentType.indexOf(sound.id)>= 0 ? '-' : '+'}}</div>
+          <div class="right-listen" @click="handlePlay(index)">
+            <img class="item-img" :src="playImg" v-show="index!==playIndex"/>
+            <img class="item-img" :src="pauseImg" v-show="index===playIndex"/>
+          </div>
+          <div class="right-add" @click="handleAdd(index)">
+            <template v-if="!sound.isLock">
+              <img class="item-img" :src="addImg" v-show="isAbledAdd[index]"/>
+              <img class="item-img" :src="minusImg" v-show="!isAbledAdd[index]"/>
+            </template>
+            <img class="item-img" :src="lockImg" v-else/>
+          </div>
         </div>
       </li>
     </ul>
@@ -18,46 +27,64 @@
 
 <script>
 import globalStore from '../stores/global-store.js';
+import playImg from '../../static/4.png';
+import pauseImg from '../../static/2.png';
+import addImg from '../../static/3.png';
+import minusImg from '../../static/1.png';
+import lockImg from '../../static/8.png';
 
 export default {
   props: {
-    sounds: Array
+    data: Array
   },
   data: function(){
     return {
       playIndex: -1,
-      _audioContext: null
+      _audioContext: null,
+      playImg: playImg,
+      pauseImg: pauseImg,
+      addImg: addImg,
+      minusImg: minusImg,
+      lockImg: lockImg
     }
   },
   computed: {
+    sounds(){
+      let lock = this.data.filter(sound => sound.isLock);
+      let notLock = this.data.filter(sound => !sound.isLock);
+      return notLock.concat(lock);
+    },
     audioContext(){
       if(!this._audioContext){
         this._audioContext = wx.createInnerAudioContext();
       }
       return this._audioContext;
     },
-    currentType(){
-      const currentType = globalStore.state.createAudioTypeInfo.map(info => info.id);
-      return currentType;
+    isAbledAdd(){
+      const res = this.sounds.map(sound => {
+        const info = globalStore.state.createAudioTypeInfo.find(info => info.id === sound.id);
+        return !info;
+      });
+      return res;
     }
   },
   methods: {
-    log(str){
-      console.log(str);
-    },
     handlePlay(index){
       if(index === this.playIndex){
         this.playIndex = -1;
-        this.audioContext.pause();
+        this.audioContext.stop();
       } else {
         this.playIndex = index;
         const src = this.sounds[index].src;
         this.audioContext.src = src;
-        this.audioContext.startTime = 0;
         this.audioContext.play();
       }
     },
     handleAdd(index){
+      if(!this.isAbledAdd[index] || this.sounds[index].isLock){
+        return;
+      }
+
       globalStore.commit('addCreateAudioType', { 
         newAudio: this.sounds[index]
       });
@@ -93,7 +120,6 @@ export default {
 .item-icon{
   width: 96rpx;
   height: 96rpx;
-  border: 5rpx solid #fff;
   border-radius: 50%;
 }
 
@@ -123,16 +149,15 @@ export default {
   align-items: center;
 }
 
-.item-listen{
+.item-img{
   width: 48rpx;
   height: 48rpx;
-  background-color: #979797;
   border-radius: 50%;
+}
+
+.right-listen{
   margin-right: 32rpx;
 }
 
-.item-listen:last-child{
-  margin-right: 0;
-}
 </style>
 

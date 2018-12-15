@@ -7,7 +7,8 @@ export default {
     start: 0,
     desc: "架子鼓",
     icon: "../../../static/box.png",
-    type: 0
+    type: 0,
+    isLock: false
   },
   '1102844' : {
     id: '1102844',
@@ -17,6 +18,7 @@ export default {
     desc: "贝斯",
     start: 0,
     icon: "../../../static/box.png",
-    type: 0
+    type: 0,
+    isLock: true
   }
 }
