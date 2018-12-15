@@ -6,9 +6,9 @@
       <img v-on:click="playClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_TAFmYHN7Il.png"/>
       <img v-on:click="playClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_Ed7F17m8AO.png"/>
     </div>
-    <div class="track_btn_wrap">
+    <div class="track_btn_wrap" v-if="trackBtnShow">
         <img v-on:click="playClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_yGAVy8XmSW.png"/>
-        <img v-on:click="playClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_KGx97ozZJ3.png"/>
+        <img v-on:click="copyClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_KGx97ozZJ3.png"/>
         <img v-on:click="playClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_7cqKDpBxI8.png"/>
     </div>
   </div>
@@ -31,10 +31,11 @@
           v-for="(subItem, i) in item.list"
           :key="i"
           class="track_item"
-
-          v-bind:style="{ width: subItem.time * 60 + 'px', marginLeft: subItem.start * 60 + 'px' }"
+          v-bind:class="[curTrack==item.id?'track_item--cur':'']"
+          v-bind:style="{ width: subItem.time * 120 + 'px', marginLeft: subItem.start * 120 + 'px' }"
           x="0"
           direction="horizontal"
+          @change="trackPosChange"
         >
         </movable-view>
       </movable-area>
@@ -61,7 +62,8 @@ export default {
       track_base: 120, // 1s=60px
       animationData: {},
       ani: false,
-      curTrack: ""
+      curTrack: "",
+      trackBtnShow: false
       //createAudioTrackInfo: {},
       // createAudioTypeInfo: []
     }
@@ -175,6 +177,7 @@ export default {
     trackClick: function(id){
       curTrack = id;
       this.curTrack = id;
+      this.trackBtnShow = true;
     },
     copyClick: function(){
       let newAudio = Object.assign({},audioConfig[curTrack]);
@@ -182,6 +185,16 @@ export default {
 
       newAudio.start = audioList.length * newAudio.time;
       globalStore.dispatch("onaddCreateAudioTrack", {id: curTrack, newAudio: newAudio });
+    },
+    trackPosChange: function(id, index, e){
+      console.log("e: ",  e)
+      // let newAudio = Object.assign({},audioConfig[id]);
+      // //let audioList = globalStore.state.createAudioTrackInfo[id].list;
+      // newAudio.start = x * newAudio.time;
+      // globalStore.commit("addCreateAudioTrack",{
+      //   index,
+      //   newAudio:
+      // })
     }
   }
 };
@@ -247,9 +260,7 @@ export default {
   0% {
     transform: translateX(0);
   }
-  50% {
-    transform: translateX(-480px);
-  }
+
   100% {
     transform: translateX(-960px);
   }
