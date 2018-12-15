@@ -1,31 +1,24 @@
 <template>
   <div class="container">
     <nav class="nav">
-      <div :class="['nav-item', {active: soundType === 0}]" @click="changeSoundType(0)">预设声音</div>
-      <div :class="['nav-item', {active: soundType === 1}]" @click="changeSoundType(1)">我的声音</div>
+      <div :class="['nav-item', {active: soundType === 0}]" @click="changeSoundType(0)">预设音效</div>
+      <div :class="['nav-item', {active: soundType === 1}]" @click="changeSoundType(1)">我的音效</div>
     </nav>
-    <ul class="list">
-      <li class="list-item" v-for="(sound, index) in currentSounds" :key="index">
-        <div class="item-left">
-          <img class="item-icon" :src="sound.icon"/>
-          <div class="item-text">
-            <p class="item-text-name">{{sound.name}}</p>
-            <p class="item-text-desc">{{sound.desc}}</p>
-          </div>
-        </div>
-        <div class="item-right">
-          <div class="item-listen"></div>
-          <div class="item-listen"></div>
-        </div>
-      </li>
-    </ul>
+    <div class="list"> 
+      <SoundList v-if="currentSounds.length" :data="currentSounds"/>
+      <p class="list-none" v-else>当前没有更多音效，请到<a class="list-none-link" href="/pages/work/main">我的作品</a>上传~</p>
+    </div>
   </div>
 </template>
 
 <script>
 import globalStore from '../../stores/global-store.js';
+import SoundList from '../../components/SoundList';
 
 export default {
+  components: {
+    SoundList
+  },
   data: function(){
     return {
       soundType: 0
@@ -33,7 +26,7 @@ export default {
   },
   computed: {
     currentSounds(){
-      return globalStore.state.sounds.filter(sound => sound.type === this.soundType);
+      return Object.values(globalStore.state.sounds).filter(sound => sound.type === this.soundType);
     },
   },
   methods: {
@@ -47,7 +40,7 @@ export default {
 <style scoped>
 .container{
   min-height: 100vh;
-  background-color: #000;
+  background-color: #513CA0;
 }
 
 .nav{
@@ -62,7 +55,8 @@ export default {
   text-align: center;
   font-size: 32rpx;
   font-weight: bold;
-  background-color: #979797;
+  color: #513CA0;
+  background-color: #fff;
   border-radius: 100rpx 0 0 100rpx;
 }
 
@@ -75,71 +69,23 @@ export default {
 }
 
 .nav-item.active{
-  background-color: #D8D8D8;
+  color: #fff;
+  background-color: #FF4646;
 }
 
 .list{
   margin-top: 56rpx;
-  padding: 0 32rpx;
 }
 
-.list-item{
-  margin-bottom: 32rpx;
-  display: flex;
-  justify-content: space-between;
-}
-
-.list-item:last-child{
-  margin-bottom: 0;
-}
-
-.item-left{
-  display: flex;
-  flex-grow: 1;
-}
-
-.item-icon{
-  width: 96rpx;
-  height: 96rpx;
-  border: 5rpx solid #fff;
-  border-radius: 50%;
-}
-
-.item-text{
-  margin-left: 16rpx; 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.list-none{
+  text-align: center;
+  font-size: 32rpx;
   color: #fff;
 }
 
-.item-text-name{
-  max-width: 430rpx;
-  font-size: 32rpx;
-  font-weight: bold;
-}
-
-.item-text-desc{
-  max-width: 430rpx;
-  margin-top: 5rpx;
-  font-size: 24rpx;
-}
-
-.item-right{
-  display: flex;
-  align-items: center;
-}
-
-.item-listen{
-  width: 48rpx;
-  height: 48rpx;
-  background-color: #979797;
-  border-radius: 50%;
-  margin-right: 32rpx;
-}
-
-.item-listen:last-child{
-  margin-right: 0;
+.list-none-link{
+  display: inline;
+  text-decoration: underline;
 }
 </style>
 

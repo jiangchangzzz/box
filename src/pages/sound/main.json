@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "解锁更多音效"
+  "navigationBarTitleText": "解锁更多音效",
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#513CA0",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#513CA0"
 }
