@@ -1,10 +1,9 @@
 {
   "pages": [
+    "pages/sound/main",
     "pages/create/main",
     "pages/index/main",
-
-    "pages/work/main",
-    "pages/sound/main"
+    "pages/work/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
