@@ -1,23 +1,26 @@
 <template>
   <div class="container">
     <nav class="nav">
-      <div :class="['nav-item', {active: soundType === 0}]" @click="changeSoundType(0)">预设音效</div>
-      <div :class="['nav-item', {active: soundType === 1}]" @click="changeSoundType(1)">我的音效</div>
+      <div :class="['nav-item', {active: soundType === 0}]" @click="changeSoundType(0)">预设声音</div>
+      <div :class="['nav-item', {active: soundType === 1}]" @click="changeSoundType(1)">我的声音</div>
     </nav>
     <div class="list"> 
       <SoundList v-if="currentSounds.length" :data="currentSounds"/>
       <p class="list-none" v-else>当前没有更多音效，请到<a class="list-none-link" href="/pages/work/main">我的作品</a>上传~</p>
     </div>
+    <Pop/>
   </div>
 </template>
 
 <script>
 import globalStore from '../../stores/global-store.js';
 import SoundList from '../../components/SoundList';
+import Pop from '../../components/Pop';
 
 export default {
   components: {
-    SoundList
+    SoundList,
+    Pop
   },
   data: function(){
     return {
@@ -40,6 +43,7 @@ export default {
 <style scoped>
 .container{
   min-height: 100vh;
+  padding-bottom: 56rpx;
   background-color: #513CA0;
 }
 

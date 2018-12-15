@@ -38,6 +38,7 @@ export default {
 .container{
   height: 100vh;
   padding-top: 120rpx;
+  padding-bottom: 56rpx;
   background-color: #513CA0;
 }
 </style>

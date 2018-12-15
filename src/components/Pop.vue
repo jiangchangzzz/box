@@ -1,5 +1,5 @@
 <template>
- <modal title="创建作品" class="modal">
+ <modal title="创建作品" :hidden="hidden" class="modal" @confirm="handleConfirm" @cancel="handleCancel">
    <div class="container">
      <div class="form-row">
        <label class="form-label">作品名称</label>
@@ -15,6 +15,12 @@
 
 <script>
 export default {
+  props: {
+    hidden: {
+      type: Boolean,
+      default: true
+    }
+  },
   data: function(){
     return {
       form: {
@@ -22,27 +28,38 @@ export default {
         desc: ''
       }
     }
+  },
+  methods: {
+    handleConfirm(){
+      this.$emit('confirm');
+    },
+    handleCancel(){
+      this.$emit('cancel');
+    }
   }
 }
 </script>
 
 <style scoped>
 .container{
-  border-top: 1px solid #ccc;
+  
 }
 
 .form-row{
+  height: 80rpx;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 0.5px solid #ccc;
 }
 
 .form-label{
-
+  margin-right: 40rpx;
+  font-size: 32rpx;
+  color: #000;
 }
 
 .form-input{
-  
+  font-size: 32rpx;
 }
 </style>
 
