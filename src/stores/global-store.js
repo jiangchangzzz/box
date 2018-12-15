@@ -20,10 +20,10 @@ export default new Vuex.Store({
       //typeInfo.push(payload.newAudio);
       //state.createAudioTypeInfo = typeInfo;
       state.createAudioTypeInfo.push(payload.newAudio);
-      state.createAudioTrackInfo[payload.newAudio.id] = {
+      state.createAudioTrackInfo = {...state.createAudioTrackInfo, [payload.newAudio.id]: {
         id: payload.newAudio.id,
         list: new Array(payload.newAudio)
-      };
+      }};
       console.log("state: ",state.createAudioTypeInfo)
       // state.createAudioTrackInfo[payload.newAudio.id].push(payload.newAudio);
     },
