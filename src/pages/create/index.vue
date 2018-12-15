@@ -7,7 +7,7 @@
       <img v-on:click="playClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_Ed7F17m8AO.png"/>
     </div>
     <div class="track_btn_wrap" v-if="trackBtnShow">
-        <img v-on:click="playClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_yGAVy8XmSW.png"/>
+        <img v-on:click="playSingleClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_yGAVy8XmSW.png"/>
         <img v-on:click="copyClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_KGx97ozZJ3.png"/>
         <img v-on:click="playClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_7cqKDpBxI8.png"/>
     </div>
@@ -16,9 +16,9 @@
     <div class="name_list">
       <button v-on:click="topClick" class="name_arrow arrow_top"></button>
       <div v-for="item in createAudioTypeInfo" :key="item.id"  class="name_item" v-on:click="trackClick(item.id)">{{item.name}}</div>
-      <div v-on:click="addClick" class="btn_add">
+      <a class="btn_add" href="/pages/sound/main">
           <img class="btn_add_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_uOEEsNwokK.png"/>
-      </div>
+      </a>
       <button v-on:click="bottomClick" class="name_arrow arrow_bottom">
 
       </button>
@@ -35,7 +35,7 @@
           v-bind:style="{ width: subItem.time * 120 + 'px', marginLeft: subItem.start * 120 + 'px' }"
           x="0"
           direction="horizontal"
-          @change="trackPosChange"
+          @change="trackPosChange($event, item.id, i)"
         >
         </movable-view>
       </movable-area>
@@ -63,7 +63,7 @@ export default {
       animationData: {},
       ani: false,
       curTrack: "",
-      trackBtnShow: false
+      trackBtnShow: false,
       //createAudioTrackInfo: {},
       // createAudioTypeInfo: []
     }
@@ -75,9 +75,13 @@ export default {
     createAudioTrackInfo(){
       console.log("trackinfo : ",globalStore.state.createAudioTrackInfo)
       return globalStore.state.createAudioTrackInfo;
+    },
+    audios(){
+      return globalStore.state.audios;
     }
   },
   created: function(){
+    console.log("created.....")
     this.createAudio();
   },
   updated: function(){
@@ -100,6 +104,19 @@ export default {
         this.ani = false;
       }
     },
+    playSingleClick: function(){
+      if(paused){
+        this.audios[curTrack+ "_0"].play();
+        paused = false;
+        //this.ani = true;
+        console.log("ani:", this.ani)
+      } else {
+        this.audios[curTrack+ "_0"].pause();
+        paused = true;
+        //this.ani = false;
+      }
+
+    },
     playAudio(){
       let tracks = globalStore.state.createAudioTrackInfo;
       let self = this;
@@ -108,10 +125,10 @@ export default {
         tracks[key].list.forEach((item, index) => {
           if(item.start){
             setTimeout(() => {
-              audios[key + "_" + index].play();
+              this.audios[key + "_" + index].play();
             },item.start * 1e3);
           } else {
-            audios[key + "_" + index].play();
+            this.audios[key + "_" + index].play();
           }
         });
       }
@@ -122,17 +139,18 @@ export default {
       for(var key in tracks){
 
         tracks[key].list.forEach((item, index) => {
-          audios[key + "_" + index].pause();
+          this.audios[key + "_" + index].pause();
         });
       }
     },
     createAudio(){
       let self = this;
+      console.log("create audio....")
       let tracks = globalStore.state.createAudioTrackInfo;
       for(var key in tracks){
         let trackList = tracks[key].list;
         trackList.forEach((item, index) => {
-          if(!audios[key + "_" + index]){
+          if(!this.audios[key + "_" + index]){
             self.createAudioItem(key, index, item);
           }
         });
@@ -162,7 +180,11 @@ export default {
 
       });
       trackCount++;
-      audios[key+ "_" + index] = innerAudioContext;
+      //this.audios[key+ "_" + index] = innerAudioContext;
+      globalStore.commit("addAudios",{
+        id: key+ "_" + index,
+        newAudio: innerAudioContext
+      });
     },
     addClick: function(){
       // let createAudioTypeInfo = globalStore.state.createAudioTypeInfo;
@@ -186,15 +208,16 @@ export default {
       newAudio.start = audioList.length * newAudio.time;
       globalStore.dispatch("onaddCreateAudioTrack", {id: curTrack, newAudio: newAudio });
     },
-    trackPosChange: function(id, index, e){
-      console.log("e: ",  e)
-      // let newAudio = Object.assign({},audioConfig[id]);
+    trackPosChange: function(e, id, index){
+      console.log("e: ",  id)
+      let newAudio = Object.assign({},audioConfig[id]);
       // //let audioList = globalStore.state.createAudioTrackInfo[id].list;
-      // newAudio.start = x * newAudio.time;
-      // globalStore.commit("addCreateAudioTrack",{
-      //   index,
-      //   newAudio:
-      // })
+      newAudio.start = e.x / 120;
+      globalStore.commit("updateCreateAudioTrack",{
+        index,
+        id,
+        newAudio
+      })
     }
   }
 };
