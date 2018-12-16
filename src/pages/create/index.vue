@@ -14,16 +14,21 @@
   </div>
   <div class="create_wrap">
     <div class="name_list">
-      <div v-on:click="topClick" class="name_arrow arrow_top"></div>
-      <div v-for="item in createAudioTypeInfo" :key="item.id"  class="name_item" v-on:click="trackClick(item.id)">
-        <img class="track_icon" :src="item.icon">
-        <div class="track_name">{{item.name}}</div>
+      <div v-on:click="topClick" class="name_arrow arrow_top">
+        <img src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_IACrAsyOHG.png" class="arrow_icon"/>
       </div>
-      <a class="btn_add" href="/pages/sound/main">
+      <div v-bind:style="{transform: 'translateY('+top+'rpx)'}">
+        <div v-for="item in createAudioTypeInfo" :key="item.id"  class="name_item" v-on:click="trackClick(item.id)">
+          <img class="track_icon" :src="item.icon">
+          <div class="track_name">{{item.name}}</div>
+        </div>
+        <a class="btn_add" href="/pages/sound/main">
           <img class="btn_add_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_uOEEsNwokK.png"/>
-      </a>
+        </a>
+      </div>
+      
       <div v-on:click="bottomClick" class="name_arrow arrow_bottom">
-
+        <img src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_IACrAsyOHG.png" class="arrow_icon arrow_icon_down"/>
       </div>
     </div>
     <div class="track_wrap">
@@ -35,7 +40,8 @@
           <div v-for="(item, index) in bg" :key="index" class="track_bg_item"></div>
         </div>        
       </div>
-      <ul id="example-1" class="track_ul">
+      <div class="track_ul">
+      <ul id="example-1"  v-bind:style="{transform: 'translateY('+top+'rpx)'}">
       <movable-area v-for="item in createAudioTypeInfo" :key="item.id" v-bind:style="{transform: 'translateX(-'+translateX+'px)'}" class="track_li" v-on:click="trackClick(item.id)" >
         <movable-view
           v-for="(subItem, i) in createAudioTrackInfo[item.id].list"
@@ -50,6 +56,7 @@
         </movable-view>
       </movable-area>
       </ul>
+      </div>
     </div>
 
   </div>
@@ -77,7 +84,8 @@ export default {
       trackBtnShow: false,
       translateX:0,
       endCount: 0,
-      popHidden: true
+      popHidden: true,
+      top: 0 //上下滚动
       //createAudioTrackInfo: {},
       // createAudioTypeInfo: []
     }
@@ -274,6 +282,12 @@ export default {
         id,
         newAudio
       })
+    },
+    topClick: function(){
+      this.top -= 135;
+    },
+    bottomClick: function(){
+      this.top += 135;
     }
   }
 };
@@ -293,10 +307,11 @@ export default {
   width: 83px;
   background-color: #513CA0;
   padding: 20px 0;
+  overflow: hidden;
 }
 .name_item{
   width: 83px;
-  height: 68px;
+  height: 135rpx;
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -308,15 +323,16 @@ export default {
   overflow: scroll;
   background-color:#E5DEFF;
   position: relative;
+  flex: 1;
 }
 .track_ul{
-  padding-top: 20px;
+  margin-top: 20px;
   width: 1200px;
-  
+  overflow: hidden;
 }
 .track_li{
   width: 1200px;
-  height: 68px;
+  height: 135rpx;
   border-bottom: 1px solid #BFBFBF;
   display: flex;
   flex-direction: row;
@@ -362,6 +378,10 @@ export default {
   height:20px;
   background-color: #372773;
   position: absolute;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .arrow_top{
 
@@ -448,5 +468,11 @@ export default {
   height:100%;
   border-right:1px dotted #513CA0;
 }
-
+.arrow_icon{
+  width: 17px;
+  height: 8px;
+}
+.arrow_icon_down{
+  transform: rotate(180deg)
+}
 </style>
