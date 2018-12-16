@@ -30,11 +30,17 @@ export default new Vuex.Store({
       console.log("state: ",state.createAudioTypeInfo)
       // state.createAudioTrackInfo[payload.newAudio.id].push(payload.newAudio);
     },
+    deleteCreateAudioType(state, payload){
+      state.createAudioTypeInfo.splice(payload.index,1);
+    },
     addCreateAudioTrack(state, payload){
       state.createAudioTrackInfo[payload.id].list.push(payload.newAudio);
     },
     updateCreateAudioTrack(state, payload){
       state.createAudioTrackInfo[payload.id].list.splice(payload.index,1,payload.newAudio)
+    },
+    deleteCreateAudioTrack(state, payload){
+      state.createAudioTrackInfo = payload.trackInfo;
     },
     addAudios(state, payload){
       state.audios = {...state.audios, [payload.id]: payload.newAudio}

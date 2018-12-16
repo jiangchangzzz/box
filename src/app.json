@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/create/main",
     "pages/sound/main",
     "pages/index/main",
-    "pages/create/main",
+    
     "pages/work/main"
   ],
   "window": {
