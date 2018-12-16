@@ -15,7 +15,10 @@
   <div class="create_wrap">
     <div class="name_list">
       <button v-on:click="topClick" class="name_arrow arrow_top"></button>
-      <div v-for="item in createAudioTypeInfo" :key="item.id"  class="name_item" v-on:click="trackClick(item.id)">{{item.name}}</div>
+      <div v-for="item in createAudioTypeInfo" :key="item.id"  class="name_item" v-on:click="trackClick(item.id)">
+        <img class="track_icon" :src="item.icon">
+        <div class="track_name">{{item.name}}</div>
+      </div>
       <a class="btn_add" href="/pages/sound/main">
           <img class="btn_add_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_uOEEsNwokK.png"/>
       </a>
@@ -241,6 +244,7 @@ export default {
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #BFBFBF;
+  flex-direction: column;
 }
 .track_wrap{
   overflow: scroll;
@@ -346,5 +350,19 @@ export default {
   height:40px;
   line-height: 40px;
   bottom: 16px;
+}
+.track_icon{
+  width: 48px;
+  height: 48px;
+}
+.track_name{
+  width: 46px;
+  height: 18px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  margin-top: -5px;
+  font-size: 12px;
+  color: black;
+  text-align: center;
 }
 </style>
