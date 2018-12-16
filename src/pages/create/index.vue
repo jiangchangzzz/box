@@ -2,7 +2,7 @@
   <div class="wrap">
   <div class="header">
     <div class="btn_wrap">
-      <img v-on:click="playClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_6ibDYgcgt3.png"/>
+      <img v-on:click="playClick" class="btn_img" v-bind:src="!paused ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_ZAKXGjZ0VC.png' : 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_6ibDYgcgt3.png'"/>
       <img v-on:click="playClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_TAFmYHN7Il.png"/>
       <img v-on:click="playClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_Ed7F17m8AO.png"/>
     </div>
@@ -49,8 +49,6 @@
 <script>
 import globalStore from '../../stores/global-store.js';
 import audioConfig from './audioConfig.js';
-
-let paused = true;
 export default {
   data () {
     return {
@@ -61,6 +59,7 @@ export default {
       curTrack: "",
       trackCount: 0,
       pauseCount: 0,
+      paused: true,
       trackBtnShow: false,
       //createAudioTrackInfo: {},
       // createAudioTypeInfo: []
@@ -88,26 +87,27 @@ export default {
 
   methods: {
     playClick: function(){
-      if(paused){
+      if(this.paused){
         this.playAudio();
-        paused = false;
+        this.paused = false;
         this.ani = true;
       } else {
         this.pauseAudio();
-        paused = true;
+        this.paused = true;
         this.ani = false;
       }
     },
     playSingleClick: function(){
+      let self = this;
       this.audios[this.curTrack+ "_0"].onPause(function(){
-        paused = true;
+        self.paused = true;
       });
-      if(paused){
+      if(this.paused){
         this.audios[this.curTrack+ "_0"].play();
-        paused = false;
+        this.paused = false;
       } else {
         this.audios[this.curTrack+ "_0"].pause();
-        paused = true;
+        this.paused = true;
       }
 
     },
@@ -162,7 +162,7 @@ export default {
         // console.log("trackc:", self.trackCount)
 
         if(self.pauseCount === self.trackCount){
-          paused = true;
+          self.paused = true;
           self.ani = false;
           self.pauseCount = 0;
           return;
