@@ -9,7 +9,7 @@
     <div class="track_btn_wrap" v-if="trackBtnShow">
         <img v-on:click="playSingleClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_yGAVy8XmSW.png"/>
         <img v-on:click="copyClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_KGx97ozZJ3.png"/>
-        <img v-on:click="playClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_7cqKDpBxI8.png"/>
+        <img v-on:click="deleteClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_7cqKDpBxI8.png"/>
     </div>
   </div>
   <div class="create_wrap">
@@ -26,9 +26,9 @@
     <div class="track_wrap">
       <div class="track_top_line"></div>
       <ul id="example-1" class="track_ul">
-      <movable-area v-for="item in createAudioTrackInfo" :key="item.id" v-bind:class="[ani ? 'bounce-enter-active' : '', 'track_li']" v-on:click="trackClick(item.id)" >
+      <movable-area v-for="item in createAudioTypeInfo" :key="item.id" v-bind:class="[ani ? 'bounce-enter-active' : '', 'track_li']" v-on:click="trackClick(item.id)" >
         <movable-view
-          v-for="(subItem, i) in item.list"
+          v-for="(subItem, i) in createAudioTrackInfo[item.id].list"
           :key="i"
           class="track_item"
           v-bind:class="[curTrack==item.id?'track_item--cur':'']"
@@ -49,20 +49,18 @@
 <script>
 import globalStore from '../../stores/global-store.js';
 import audioConfig from './audioConfig.js';
-let audios = {};
-let audioArr = [];
-let curTrack = "";
+
 let paused = true;
-let trackCount = 0;
-let pauseCount = 0;
 export default {
   data () {
     return {
       x: 0,
-      track_base: 120, // 1s=60px
+      track_base: 120, // 1s=120px
       animationData: {},
       ani: false,
       curTrack: "",
+      trackCount: 0,
+      pauseCount: 0,
       trackBtnShow: false,
       //createAudioTrackInfo: {},
       // createAudioTypeInfo: []
@@ -73,7 +71,6 @@ export default {
       return globalStore.state.createAudioTypeInfo;
     },
     createAudioTrackInfo(){
-      console.log("trackinfo : ",globalStore.state.createAudioTrackInfo)
       return globalStore.state.createAudioTrackInfo;
     },
     audios(){
@@ -91,13 +88,10 @@ export default {
 
   methods: {
     playClick: function(){
-      console.log("paused :", paused)
-      console.log("ani before:", this.ani)
       if(paused){
         this.playAudio();
         paused = false;
         this.ani = true;
-        console.log("ani:", this.ani)
       } else {
         this.pauseAudio();
         paused = true;
@@ -105,15 +99,15 @@ export default {
       }
     },
     playSingleClick: function(){
-      if(paused){
-        this.audios[curTrack+ "_0"].play();
-        paused = false;
-        //this.ani = true;
-        console.log("ani:", this.ani)
-      } else {
-        this.audios[curTrack+ "_0"].pause();
+      this.audios[this.curTrack+ "_0"].onPause(function(){
         paused = true;
-        //this.ani = false;
+      });
+      if(paused){
+        this.audios[this.curTrack+ "_0"].play();
+        paused = false;
+      } else {
+        this.audios[this.curTrack+ "_0"].pause();
+        paused = true;
       }
 
     },
@@ -123,13 +117,11 @@ export default {
       for(var key in tracks){
 
         tracks[key].list.forEach((item, index) => {
-          if(item.start){
-            setTimeout(() => {
-              this.audios[key + "_" + index].play();
-            },item.start * 1e3);
-          } else {
-            this.audios[key + "_" + index].play();
-          }
+          let k = key;
+          let i = index;
+          setTimeout(function() {
+            self.audios[k + "_" + i].play();
+          },item.start * 1e3);
         });
       }
     },
@@ -164,55 +156,58 @@ export default {
         console.log("play start....")
       });
       innerAudioContext.onPause(function(){
-        pauseCount++;
-        console.log("pause end.....")
-        console.log("pausecount :", pauseCount)
-        console.log("trackc:", trackCount)
+        self.pauseCount++;
+        // console.log("pause end.....")
+        // console.log("pausecount :", self.pauseCount)
+        // console.log("trackc:", self.trackCount)
 
-        if(pauseCount === trackCount){
-          console.log("paused..........")
+        if(self.pauseCount === self.trackCount){
           paused = true;
           self.ani = false;
-          console.log("this ani:", this.ani)
-          pauseCount = 0;
+          self.pauseCount = 0;
           return;
         }
 
       });
-      trackCount++;
+      this.trackCount++;
       //this.audios[key+ "_" + index] = innerAudioContext;
       globalStore.commit("addAudios",{
         id: key+ "_" + index,
         newAudio: innerAudioContext
       });
     },
-    addClick: function(){
-      // let createAudioTypeInfo = globalStore.state.createAudioTypeInfo;
-      // createAudioTypeInfo.push(audioConfig["1102845"]);
-      if(trackCount){
-        globalStore.commit("addCreateAudioType", {newAudio: audioConfig["1102844"]});
-      } else {
-        globalStore.commit("addCreateAudioType", {newAudio: audioConfig["1102845"]});
-      }
-
-    },
     trackClick: function(id){
-      curTrack = id;
       this.curTrack = id;
       this.trackBtnShow = true;
     },
     copyClick: function(){
-      let newAudio = Object.assign({},audioConfig[curTrack]);
-      let audioList = globalStore.state.createAudioTrackInfo[curTrack].list;
+      let newAudio = Object.assign({},audioConfig[this.curTrack]);
+      let audioList = globalStore.state.createAudioTrackInfo[this.curTrack].list;
 
       newAudio.start = audioList.length * newAudio.time;
-      globalStore.dispatch("onaddCreateAudioTrack", {id: curTrack, newAudio: newAudio });
+      globalStore.dispatch("onaddCreateAudioTrack", {id: this.curTrack, newAudio: newAudio });
+    },
+    deleteClick: function(){
+      
+      let trackInfo = Object.assign({}, globalStore.state.createAudioTrackInfo);
+      this.trackCount = this.trackCount - trackInfo[this.curTrack].list.length;
+      delete trackInfo[this.curTrack];
+      let trackType = globalStore.state.createAudioTypeInfo;
+      let index = 0;
+      trackType.forEach((item, idx) => {
+        if(item.id === this.curTrack){
+          index = idx;
+        }
+      })
+      this.curTrack = "";
+      globalStore.commit("deleteCreateAudioType", {index});
+      globalStore.commit("deleteCreateAudioTrack", { trackInfo });
     },
     trackPosChange: function(e, id, index){
-      console.log("e: ",  id)
+      console.log("e: ",  e.x)
       let newAudio = Object.assign({},audioConfig[id]);
-      // //let audioList = globalStore.state.createAudioTrackInfo[id].list;
       newAudio.start = e.x / 120;
+
       globalStore.commit("updateCreateAudioTrack",{
         index,
         id,
@@ -328,6 +323,7 @@ export default {
   position: absolute;
   left:0;
   bottom: 16px;
+  height: 40px;
 }
 .btn_img{
   width:40px;
@@ -341,10 +337,14 @@ export default {
 }
 .track_btn_wrap{
   background-color: #FF4646;
+  border-radius: 100px 0px 0px 100px;
   width: 126px;
   position: absolute;
+  display: flex;
+  align-items: center;
   right:0;
   height:40px;
+  line-height: 40px;
   bottom: 16px;
 }
 </style>
