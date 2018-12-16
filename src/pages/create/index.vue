@@ -3,8 +3,8 @@
   <div class="header">
     <div class="btn_wrap">
       <img v-on:click="playClick" class="btn_img" v-bind:src="!paused ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_ZAKXGjZ0VC.png' : 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_6ibDYgcgt3.png'"/>
-      <img v-on:click="playClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_TAFmYHN7Il.png"/>
-      <img v-on:click="playClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_Ed7F17m8AO.png"/>
+      <img v-on:click="replayClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_TAFmYHN7Il.png"/>
+      <img v-on:click="saveClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_Ed7F17m8AO.png"/>
     </div>
     <div class="track_btn_wrap" v-if="trackBtnShow">
         <img v-on:click="playSingleClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_yGAVy8XmSW.png"/>
@@ -14,7 +14,7 @@
   </div>
   <div class="create_wrap">
     <div class="name_list">
-      <button v-on:click="topClick" class="name_arrow arrow_top"></button>
+      <div v-on:click="topClick" class="name_arrow arrow_top"></div>
       <div v-for="item in createAudioTypeInfo" :key="item.id"  class="name_item" v-on:click="trackClick(item.id)">
         <img class="track_icon" :src="item.icon">
         <div class="track_name">{{item.name}}</div>
@@ -22,14 +22,21 @@
       <a class="btn_add" href="/pages/sound/main">
           <img class="btn_add_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_uOEEsNwokK.png"/>
       </a>
-      <button v-on:click="bottomClick" class="name_arrow arrow_bottom">
+      <div v-on:click="bottomClick" class="name_arrow arrow_bottom">
 
-      </button>
+      </div>
     </div>
     <div class="track_wrap">
-      <div class="track_top_line"></div>
+      <div class="track_bg">
+        <div class="track_top_line">
+          <div v-for="(item, index) in bg" :key="index" class="track_bg_dot_item"></div>
+        </div>
+        <div class="track_bg_line_wrap">
+          <div v-for="(item, index) in bg" :key="index" class="track_bg_item"></div>
+        </div>        
+      </div>
       <ul id="example-1" class="track_ul">
-      <movable-area v-for="item in createAudioTypeInfo" :key="item.id" v-bind:class="[ani ? 'bounce-enter-active' : '', 'track_li']" v-on:click="trackClick(item.id)" >
+      <movable-area v-for="item in createAudioTypeInfo" :key="item.id" v-bind:style="{transform: 'translateX(-'+translateX+'px)'}" class="track_li" v-on:click="trackClick(item.id)" >
         <movable-view
           v-for="(subItem, i) in createAudioTrackInfo[item.id].list"
           :key="i"
@@ -46,15 +53,19 @@
     </div>
 
   </div>
+  <Pop v-bind:hidden="popHidden"/>
   </div>
 </template>
 
 <script>
 import globalStore from '../../stores/global-store.js';
 import audioConfig from './audioConfig.js';
+import Pop from '../../components/Pop';
+import { clearTimeout, setTimeout } from 'timers';
 export default {
   data () {
     return {
+      bg:new Array(16),
       x: 0,
       track_base: 120, // 1s=120px
       animationData: {},
@@ -64,6 +75,9 @@ export default {
       pauseCount: 0,
       paused: true,
       trackBtnShow: false,
+      translateX:0,
+      endCount: 0,
+      popHidden: true
       //createAudioTrackInfo: {},
       // createAudioTypeInfo: []
     }
@@ -84,7 +98,7 @@ export default {
     this.createAudio();
   },
   updated: function(){
-    console.log("update....")
+    // console.log("update....")
     this.createAudio();
   },
 
@@ -99,6 +113,24 @@ export default {
         this.paused = true;
         this.ani = false;
       }
+    },
+    replayClick: function(){
+
+      this.aniTimer && clearTimeout(this.aniTimer);
+      this.paused = true;
+      this.translateX = 0;
+
+      let tracks = globalStore.state.createAudioTrackInfo;
+      let self = this;
+      for(var key in tracks){
+
+        tracks[key].list.forEach((item, index) => {
+          this.audios[key + "_" + index].stop();
+        });
+      }
+    },
+    saveClick: function(){
+      this.popHidden = false;
     },
     playSingleClick: function(){
       let self = this;
@@ -127,6 +159,15 @@ export default {
           },item.start * 1e3);
         });
       }
+      this.animation();
+    },
+    animation(){
+      let self = this;
+      this.aniTimer && clearTimeout(this.aniTimer);
+      setTimeout(() => {
+        self.translateX+= 12;
+        !this.paused && this.animation();
+      }, 100);
     },
     pauseAudio(){
       let tracks = globalStore.state.createAudioTrackInfo;
@@ -140,7 +181,7 @@ export default {
     },
     createAudio(){
       let self = this;
-      console.log("create audio....")
+      // console.log("create audio....")
       let tracks = globalStore.state.createAudioTrackInfo;
       for(var key in tracks){
         let trackList = tracks[key].list;
@@ -153,10 +194,11 @@ export default {
     },
     createAudioItem: function(key, index, item){
       let self = this;
+      console.log("create audio:", item)
       const innerAudioContext = wx.createInnerAudioContext()
       innerAudioContext.src = item.src;
       innerAudioContext.onPlay(function(){
-        console.log("play start....")
+        //console.log("play start....")
       });
       innerAudioContext.onPause(function(){
         self.pauseCount++;
@@ -168,6 +210,22 @@ export default {
           self.paused = true;
           self.ani = false;
           self.pauseCount = 0;
+          return;
+        }
+
+      });
+      innerAudioContext.onEnded(function(){
+        self.endCount++;
+        // console.log("pause end.....")
+        // console.log("pausecount :", self.pauseCount)
+        // console.log("trackc:", self.trackCount)
+
+        if(self.endCount === self.trackCount){
+          self.paused = true;
+          self.ani = false;
+          self.pauseCount = 0;
+          self.aniTimer && clearTimeout(self.aniTimer);
+          self.translateX = 0;
           return;
         }
 
@@ -249,10 +307,12 @@ export default {
 .track_wrap{
   overflow: scroll;
   background-color:#E5DEFF;
+  position: relative;
 }
 .track_ul{
+  padding-top: 20px;
   width: 1200px;
-  background-color:#E5DEFF;
+  
 }
 .track_li{
   width: 1200px;
@@ -273,7 +333,7 @@ export default {
   background-color: #FF4646;
 }
 .bounce-enter-active {
-  animation: bounce-in 8s;
+  animation: bounce-in 8s linear;
 }
 .bounce-leave-active {
   animation: bounce-in .1s reverse;
@@ -282,7 +342,9 @@ export default {
   0% {
     transform: translateX(0);
   }
-
+  50% {
+    transform: translateX(-480px);
+  }
   100% {
     transform: translateX(-960px);
   }
@@ -328,6 +390,7 @@ export default {
   left:0;
   bottom: 16px;
   height: 40px;
+
 }
 .btn_img{
   width:40px;
@@ -365,4 +428,25 @@ export default {
   color: black;
   text-align: center;
 }
+.track_bg{
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left:0;
+  right:0;
+  width: 1200px;
+  background-color:#E5DEFF;
+  overflow: hidden;
+}
+.track_bg_line_wrap{
+  height:100%;
+  display:flex;
+  flex-direction: row;
+}
+.track_bg_item{
+  width:120px;
+  height:100%;
+  border-right:1px dotted #513CA0;
+}
+
 </style>
