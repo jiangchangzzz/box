@@ -2,7 +2,7 @@
   <ul class="list">
       <li class="list-item" v-for="(sound, index) in sounds" :key="sound.id">
         <div class="item-left">
-          <img class="item-icon" :src="sound.icon"/>
+          <img class="item-icon" :src="icons[index % icons.length]"/>
           <div class="item-text">
             <p class="item-text-name">{{sound.name}}</p>
             <p class="item-text-desc">{{sound.desc || sound.name}}</p>
@@ -32,6 +32,7 @@ import pauseImg from '../../static/2.png';
 import addImg from '../../static/3.png';
 import minusImg from '../../static/1.png';
 import lockImg from '../../static/8.png';
+import icons from '../data/icons.js';
 
 export default {
   props: {
@@ -45,7 +46,8 @@ export default {
       pauseImg: pauseImg,
       addImg: addImg,
       minusImg: minusImg,
-      lockImg: lockImg
+      lockImg: lockImg,
+      icons: icons
     }
   },
   computed: {
@@ -57,6 +59,9 @@ export default {
     audioContext(){
       if(!this._audioContext){
         this._audioContext = wx.createInnerAudioContext();
+        this._audioContext.onEnded(() => {
+          this.playIndex = -1
+        });
       }
       return this._audioContext;
     },
@@ -98,10 +103,6 @@ export default {
 
 
 <style scoped>
-.list{
-  padding: 0 32rpx;
-}
-
 .list-item{
   margin-bottom: 32rpx;
   display: flex;

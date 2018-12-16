@@ -2,7 +2,7 @@
   <ul class="list">
     <li class="list-item" v-for="(work, index) in works" :key="index">
       <div class="item-left">
-        <img class="item-icon" :src="work.icon">
+        <img class="item-icon" :src="icons[index % icons.length]">
         <div class="item-text">
           <p class="item-text-name">{{work.name}}</p>
           <p class="item-text-desc">{{work.desc || work.name}}</p>
@@ -28,6 +28,7 @@ import globalStore from '../stores/global-store.js';
 import playImg from '../../static/4.png';
 import pauseImg from '../../static/2.png';
 import shareImg from '../../static/9.png';
+import icons from '../data/icons.js';
 
 export default {
   props: {
@@ -39,7 +40,8 @@ export default {
       _audioContext: null,
       playImg: playImg,
       pauseImg: pauseImg,
-      shareImg: shareImg
+      shareImg: shareImg,
+      icons: icons.reverse()
     }
   },
   computed: {
@@ -55,6 +57,9 @@ export default {
       if(index === this.playIndex){
         this.playIndex = -1;
         this.audioContext.stop();
+        this.audioContext.onEnded(() => {
+          this.playIndex = -1;
+        });
       } else {
         this.playIndex = index;
         const src = this.works[index].src;
@@ -68,10 +73,6 @@ export default {
 
 
 <style scoped>
-.list{
-  padding: 0 32rpx;
-}
-
 .list-item{
   margin-bottom: 32rpx;
   display: flex;

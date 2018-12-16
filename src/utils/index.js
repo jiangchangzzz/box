@@ -26,3 +26,8 @@ export const shareWork = (name) => {
     imageUrl: shareImg
   }
 }
+
+// 获取一个随机数
+export const randInt = (start, end) => {
+  return Math.floor(start + Math.random() * (end - start + 1));
+};

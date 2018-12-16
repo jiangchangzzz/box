@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import globalStore from '../stores/global-store.js';
+
 export default {
   props: {
     hidden: {
@@ -24,13 +26,20 @@ export default {
   data: function(){
     return {
       form: {
-        name: '',
-        desc: ''
+        name: '神秘作品',
+        desc: '这是一个神秘作品'
       }
     }
   },
   methods: {
     handleConfirm(){
+      globalStore.commit('addWork', {
+        work: {
+          name: this.form.name,
+          desc: this.form.desc,
+          createAudioTrackInfo: globalStore.state.createAudioTrackInfo
+        }
+      }); 
       this.$emit('confirm');
     },
     handleCancel(){
@@ -42,7 +51,7 @@ export default {
 
 <style scoped>
 .container{
-  
+  padding: 20rpx 0;
 }
 
 .form-row{

@@ -38,6 +38,9 @@ export default new Vuex.Store({
     },
     addAudios(state, payload){
       state.audios = {...state.audios, [payload.id]: payload.newAudio}
+    },
+    addWork(state, payload){
+      state.works.push(payload.work);
     }
   },
   actions: {

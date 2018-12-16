@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container" style="background-image: url(../../../static/index-bg.png)">
     <div class="header">
-      <h1 class="header-title">这里是标题</h1>
+      <h1 class="header-title">Beats Maker</h1>
       <!-- <template v-if="userInfo">
         <img class="header-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
         <p class="header-nickname">{{userInfo.nickName}}</p>
@@ -10,17 +10,17 @@
     </div>
     <div class="main">
       <ul class="main-list">
-        <li>
-          <a class="main-button" href="/pages/create/main">开始创作</a>
+        <li class="list-item">
+          <a href="/pages/create/main"><img class="button-img-main" src="../../../static/Group 3 Copy.png"/></a>
         </li>
-        <li>
-          <a class="main-button" href="/pages/work/main">我的作品</a>
+        <li class="list-item">
+          <a href="/pages/work/main"><img class="button-img-main" src="../../../static/Group 4 Copy.png"/></a>
         </li>
-        <li>
-          <a class="main-button" href="/pages/sound/main">解锁更多音效</a>
+        <li class="list-item">
+          <a href="/pages/sound/main"><img class="button-img-other" src="../../../static/Group 5 Copy.png"/></a>
         </li>
-        <li>
-          <button class="main-button" open-type="share">召唤好友加入</button>
+        <li class="list-item">
+          <button class="list-button" open-type="share"><img class="button-img-other" src="../../../static/Group 6 Copy.png"/></button>
         </li>
       </ul>
     </div>
@@ -46,21 +46,27 @@ export default {
 <style scoped>
 .container {
   height: 100vh;
-  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  background-color: #513CA0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .header {
   box-sizing: border-box;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 20%;
 }
 
 .header-title {
-  font-size: 24px;
+  font-size: 60rpx;
   font-weight: bold;
+  color: #fff;
 }
 
 .header-avatar{
@@ -75,27 +81,43 @@ export default {
 
 .main {
   box-sizing: border-box;
-  height: 80%;
-  padding: 80rpx 0;
+  padding: 40rpx 0;
 }
 
 .main-list {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
-  height: 100%;
 }
 
-.main-button {
-  width: 560rpx;
-  height: 160rpx;
-  line-height: 160rpx;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 40rpx;
-  font-size: 36rpx;
-  font-weight: bold;
+.list-item{
+  margin-bottom: 32rpx;
 }
+
+.list-item:last-child{
+  margin-bottom: 0;
+}
+
+.list-button {
+  width: 580rpx;
+  height: 180rpx;
+  padding: 0;
+  background-color: transparent;
+}
+
+.list-button::after{
+  border: none;
+}
+
+.button-img-main{
+  width: 580rpx;
+  height: 220rpx;
+}
+
+.button-img-other{
+  width: 580rpx;
+  height: 180rpx;
+}
+
 </style>
 
