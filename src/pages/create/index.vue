@@ -53,7 +53,7 @@
     </div>
 
   </div>
-  <Pop v-bind:hidden="popHidden"/>
+  <Pop v-bind:hidden="popHidden" @confirm="handleConfirm" @cancel="handleCancel"/>
   </div>
 </template>
 
@@ -63,6 +63,9 @@ import audioConfig from './audioConfig.js';
 import Pop from '../../components/Pop';
 import { clearTimeout, setTimeout } from 'timers';
 export default {
+  components: {
+    Pop
+  },
   data () {
     return {
       bg:new Array(16),
@@ -274,6 +277,15 @@ export default {
         id,
         newAudio
       })
+    },
+    handleConfirm(){
+      this.popHidden = true;
+      wx.navigateTo({
+        url: '/pages/work/main'
+      });
+    },
+    handleCancel(){
+      this.popHidden = true;
     }
   }
 };
