@@ -5,6 +5,8 @@ import works from '../data/works';
 
 Vue.use(Vuex);
 
+const baseUrl = process.env.API_BASE_URL;
+
 export default new Vuex.Store({
   state: {
     userInfo: null,
@@ -55,8 +57,22 @@ export default new Vuex.Store({
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          wx.request({
+            url: `${baseUrl}/login`,
+            data: {
+              code: res.code
+            },
+            success: res => {
+              if(res.data.code === 0){
+                console.log(res.data.data);
+              } else {
+                console.log(res.data);
+              }
+            }
+          });
         }
-      })
+      });
+
       // 获取用户信息
       wx.getSetting({
         success: res => {
