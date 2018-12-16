@@ -57,19 +57,19 @@ export default new Vuex.Store({
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          wx.request({
-            url: `${baseUrl}/login`,
-            data: {
-              code: res.code
-            },
-            success: res => {
-              if(res.data.code === 0){
-                console.log(res.data.data);
-              } else {
-                console.log(res.data);
-              }
-            }
-          });
+          // wx.request({
+          //   url: `${baseUrl}/login`,
+          //   data: {
+          //     code: res.code
+          //   },
+          //   success: res => {
+          //     if(res.data.code === 0){
+          //       console.log(res.data.data);
+          //     } else {
+          //       console.log(res.data);
+          //     }
+          //   }
+          // });
         }
       });
 
