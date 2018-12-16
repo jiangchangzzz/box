@@ -33,6 +33,10 @@ export default {
   },
   methods: {
     handleConfirm(){
+      if(!this.validate()){
+        return;
+      }
+
       globalStore.commit('addWork', {
         work: {
           name: this.form.name,
@@ -44,6 +48,17 @@ export default {
     },
     handleCancel(){
       this.$emit('cancel');
+    },
+    validate(){
+      if(!this.form.name.trim().length){
+        wx.showToast({
+          title: '请填写作品名称',
+          icon: 'none'
+        });
+        return false;
+      }
+
+      return true;
     }
   }
 }

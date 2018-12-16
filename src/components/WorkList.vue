@@ -57,10 +57,16 @@ export default {
         this.playIndex = -1;
         this.trackPlayer.stopAudio();
       } else {
-        this.playIndex = index;
-
         this.trackPlayer.stopAudio();
-        this.trackPlayer.playAudio(this.works[index].createAudioTrackInfo);
+
+        // 音轨中有声音才播放
+        const tracks = this.works[index].createAudioTrackInfo;
+        if(Object.keys(tracks).length){
+          this.playIndex = index;
+          this.trackPlayer.playAudio(tracks);
+        } else {
+          this.playIndex = -1;
+        }
       }
     }
   }
