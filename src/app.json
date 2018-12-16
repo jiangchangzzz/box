@@ -1,16 +1,15 @@
 {
   "pages": [
-    "pages/create/main",
-    "pages/sound/main",
     "pages/index/main",
-    
+    "pages/sound/main",
+    "pages/create/main",
     "pages/work/main"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "Beats Maker",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#513CA0",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#000"
+    "backgroundColor": "#513CA0"
   }
 }

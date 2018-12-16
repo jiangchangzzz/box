@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <WorkList :works="works" @share="handleShare"/>
+    <WorkList v-if="works.length" :works="works"/>
+    <p class="list-none" v-else>还没有创建作品，<a class="list-none-link" href="/pages/create/main">开始创作</a>吧~</p>
   </div>
 </template>
 
@@ -23,11 +24,6 @@ export default {
       return globalStore.state.works;
     }
   },
-  methods: {
-    handleShare(name){
-      this.shareName = name;
-    }
-  },
   onShareAppMessage: function(res) {
     return shareWork(this.shareName);
   }
@@ -36,10 +32,21 @@ export default {
 
 <style scoped>
 .container{
-  height: 100vh;
-  padding-top: 120rpx;
-  padding-bottom: 56rpx;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 120rpx 56rpx 32rpx;
   background-color: #513CA0;
+}
+
+.list-none{
+  font-size: 32rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.list-none-link{
+  display: inline-block;
+  text-decoration: underline;
 }
 </style>
 
