@@ -29,6 +29,7 @@ import playImg from '../../static/4.png';
 import pauseImg from '../../static/2.png';
 import shareImg from '../../static/9.png';
 import icons from '../data/icons.js';
+import TrackPlayer from '../utils/TrackPlayer.js';
 
 export default {
   props: {
@@ -44,27 +45,22 @@ export default {
       icons: icons.reverse()
     }
   },
-  computed: {
-    audioContext(){
-      if(!this._audioContext){
-        this._audioContext = wx.createInnerAudioContext();
-      }
-      return this._audioContext;
-    }
+  mounted(){
+    this.trackPlayer = new TrackPlayer();
+    this.trackPlayer.onEnded(() => {
+      this.playIndex = -1;
+    });
   },
   methods: {
-    handlePlay(){
+    handlePlay(index){
       if(index === this.playIndex){
         this.playIndex = -1;
-        this.audioContext.stop();
-        this.audioContext.onEnded(() => {
-          this.playIndex = -1;
-        });
+        this.trackPlayer.stopAudio();
       } else {
         this.playIndex = index;
-        const src = this.works[index].src;
-        this.audioContext.src = src;
-        this.audioContext.play();
+
+        this.trackPlayer.stopAudio();
+        this.trackPlayer.playAudio(this.works[index].createAudioTrackInfo);
       }
     }
   }
