@@ -6,7 +6,7 @@ export default {
     name: "架子鼓",   // 名称
     start: 0,
     desc: "架子鼓",   // 描述
-    icon: "../../../static/box.png",   // 封面图片
+    icon: "../../../static/1212.png",   // 封面图片
     type: 0,
     isLock: false
   },
@@ -17,7 +17,7 @@ export default {
     name: "贝斯",
     desc: "贝斯",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "../../../static/2222.png",
     type: 0,
     isLock: false
   },
@@ -27,7 +27,7 @@ export default {
     time: 0.5,
     name: "猫_0.5s",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "../../../static/2323.png",
     type: 0,
     isLock: false
   },
@@ -37,7 +37,7 @@ export default {
     time: 1,
     name: "猫_1s",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "../../../static/2424.png",
     type: 0,
     isLock: false
   },
@@ -47,7 +47,7 @@ export default {
     time: 0.5,
     name: "牛_0.5s",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "../../../static/2525.png",
     type: 0,
     isLock: false
   },

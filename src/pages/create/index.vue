@@ -2,9 +2,9 @@
   <div class="wrap">
   <div class="header">
     <div class="btn_wrap">
-      <img v-on:click="playClick" class="btn_img" v-bind:src="!paused ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_ZAKXGjZ0VC.png' : 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_6ibDYgcgt3.png'"/>
-      <img v-on:click="replayClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_TAFmYHN7Il.png"/>
-      <img v-on:click="saveClick" class="btn_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_Ed7F17m8AO.png"/>
+      <img v-on:click="playClick" class="btn_img" v-bind:src="!createAudioTypeInfo.length ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_dNr8rXzpv0.png' : !paused ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_ZAKXGjZ0VC.png' : 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_6ibDYgcgt3.png'"/>
+      <img v-on:click="replayClick" class="btn_img" v-bind:src="!createAudioTypeInfo.length ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_i2PpSecveN.png' :'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_TAFmYHN7Il.png'"/>
+      <img v-on:click="saveClick" class="btn_img" v-bind:src="!createAudioTypeInfo.length ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_arwpgdB9YO.png' : 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_Ed7F17m8AO.png'"/>
     </div>
     <div class="track_btn_wrap" v-if="trackBtnShow">
         <img v-on:click="playSingleClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_yGAVy8XmSW.png"/>
@@ -20,10 +20,10 @@
       <div v-bind:style="{transform: 'translateY('+top+'rpx)'}">
         <div v-for="item in createAudioTypeInfo" :key="item.id"  class="name_item" v-on:click="trackClick(item.id)">
           <img class="track_icon" :src="item.icon">
-          <div class="track_name">{{item.name}}</div>
+          <div class="track_name" v-bind:class="[curTrack==item.id?'track_name--cur':'']">{{item.name}}</div>
         </div>
         <a class="btn_add" href="/pages/sound/main">
-          <img class="btn_add_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_uOEEsNwokK.png"/>
+          <img class="btn_add_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_qSLIQzuRnt.png"/>
         </a>
       </div>
       
@@ -176,8 +176,11 @@ export default {
       let self = this;
       this.aniTimer && clearTimeout(this.aniTimer);
       setTimeout(() => {
-        self.translateX+= 12;
-        !this.paused && this.animation();
+        
+        if(!self.paused){
+          self.translateX+= 12;
+          self.animation();
+        }
       }, 100);
     },
     pauseAudio(){
@@ -227,16 +230,20 @@ export default {
       });
       innerAudioContext.onEnded(function(){
         self.endCount++;
-        // console.log("pause end.....")
-        // console.log("pausecount :", self.pauseCount)
-        // console.log("trackc:", self.trackCount)
+        console.log("pause end.....")
+        console.log("pausecount :", self.endCount)
+        console.log("trackc:", self.trackCount)
 
         if(self.endCount === self.trackCount){
+          console.log("ended.....")
+          console.log(self.aniTimer)
           self.paused = true;
+          self.translateX = 0;
           self.ani = false;
           self.pauseCount = 0;
           self.aniTimer && clearTimeout(self.aniTimer);
-          self.translateX = 0;
+          self.endCount = 0;
+          
           return;
         }
 
@@ -360,23 +367,6 @@ export default {
 .track_item--cur{
   background-color: #FF4646;
 }
-.bounce-enter-active {
-  animation: bounce-in 8s linear;
-}
-.bounce-leave-active {
-  animation: bounce-in .1s reverse;
-}
-@keyframes bounce-in {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-480px);
-  }
-  100% {
-    transform: translateX(-960px);
-  }
-}
 .header{
   position: absolute;
   top:0;
@@ -455,10 +445,14 @@ export default {
   height: 18px;
   background-color: #ffffff;
   border-radius: 5px;
-  margin-top: -5px;
+  margin-top: -9px;
   font-size: 12px;
   color: black;
   text-align: center;
+}
+.track_name--cur{
+  background-color:#FF4646;
+  color: #ffffff;
 }
 .track_bg{
   position: absolute;
