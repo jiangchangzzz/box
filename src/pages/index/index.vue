@@ -1,12 +1,7 @@
 <template>
   <div class="container" style="background-image: url(../../../static/index-bg.png)">
     <div class="header">
-      <h1 class="header-title">Beats Maker</h1>
-      <!-- <template v-if="userInfo">
-        <img class="header-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-        <p class="header-nickname">{{userInfo.nickName}}</p>
-      </template> -->
-      
+     <img class="header-img" src="../../../static/logo2.png"/> 
     </div>
     <div class="main">
       <ul class="main-list">
@@ -63,10 +58,9 @@ export default {
   align-items: center;
 }
 
-.header-title {
-  font-size: 60rpx;
-  font-weight: bold;
-  color: #fff;
+.header-img{
+  width: 300rpx;
+  height: 170rpx;
 }
 
 .header-avatar{

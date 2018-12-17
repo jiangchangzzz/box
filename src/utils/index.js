@@ -1,13 +1,4 @@
-const shareImg = "../../static/box.png";
-
-// 召唤好友
-export const callFriend = (userId) => {
-  return {
-    title: "box 召唤好友",
-    path: `/pages/index/main?userid=${userId}`,
-    imageUrl: shareImg
-  }
-};
+const shareImg = "../../static/logo1.png";
 
 // 分享主页
 export const shareIndex = () => {

@@ -15,6 +15,7 @@
 <script>
 import globalStore from '../../stores/global-store.js';
 import SoundList from '../../components/SoundList';
+import { shareIndex } from '../../utils/index.js';
 
 export default {
   components: {
@@ -40,6 +41,9 @@ export default {
         icon: 'loading'
       })
     }
+  },
+  onShareAppMessage: function(res) {
+    return shareIndex();
   }
 }
 </script>

@@ -69,6 +69,8 @@ import globalStore from '../../stores/global-store.js';
 import audioConfig from './audioConfig.js';
 import Pop from '../../components/Pop';
 import { clearTimeout, setTimeout } from 'timers';
+import { shareIndex } from '../../utils/index.js';
+
 export default {
   components: {
     Pop
@@ -308,6 +310,10 @@ export default {
     handleCancel(){
       this.popHidden = true;
     }
+  },
+
+  onShareAppMessage: function(res) {
+    return shareIndex();
   }
 };
 </script>
