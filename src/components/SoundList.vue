@@ -93,9 +93,9 @@ export default {
       globalStore.commit('addCreateAudioType', { 
         newAudio: this.sounds[index]
       });
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/create/main'
-      })
+      });
     }
   }
 }
