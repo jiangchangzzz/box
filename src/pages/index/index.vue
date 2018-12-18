@@ -25,12 +25,40 @@
 <script>
 import { shareIndex } from "../../utils/index";
 import globalStore from '../../stores/global-store.js';
+import works from '../../data/works.js';
 
 export default {
   computed: {
     userInfo(){
       return globalStore.state.userInfo;
     }
+  },
+  mounted(){
+    const pages = getCurrentPages();
+    const query = pages[pages.length - 1].options;
+    if(query.beatsmakerwork){
+      let work = null;
+      try{
+        work = JSON.parse(decodeURIComponent(query.beatsmakerwork));
+      } catch(error){
+        wx.showToast({
+          title: '加载作品有误，直接创建你的作品吧~',
+          icon: 'none'
+        });
+      }
+
+      globalStore.commit('updateCreateInfo', {
+        createAudioTrackInfo: work.createAudioTrackInfo
+      });  
+      
+      wx.redirectTo({
+        url: '/pages/create/main'
+      });
+    }
+    // const work = works[0];
+    // globalStore.commit('updateCreateInfo', {
+    //     createAudioTrackInfo: work.createAudioTrackInfo
+    // });
   },
   onShareAppMessage: function(res) {
       return shareIndex();

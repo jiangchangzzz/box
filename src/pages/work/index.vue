@@ -59,7 +59,7 @@ export default {
 .container{
   box-sizing: border-box;
   min-height: 100vh;
-  padding: 120rpx 56rpx 32rpx;
+  padding: 120rpx 32rpx 56rpx;
   background-color: #513CA0;
 }
 
