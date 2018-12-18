@@ -49,6 +49,18 @@ export default new Vuex.Store({
     },
     addWork(state, payload){
       state.works.push(payload.work);
+    },
+    updateCreateInfo(state, payload){
+      const track = payload.createAudioTrackInfo;
+      let res = [];
+      Object.keys(track).forEach(key => {
+        const item = track[key];
+        if(item.list.length){
+          res.push(item.list[0]);
+        }
+      });
+      state.createAudioTypeInfo = res;
+      state.createAudioTrackInfo = payload.createAudioTrackInfo;
     }
   },
   actions: {
