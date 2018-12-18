@@ -29,9 +29,9 @@
           <img class="track_icon" :src="item.icon">
           <div class="track_name" v-bind:class="[curTrack==item.id?'track_name--cur':'']">{{item.name}}</div>
         </div>
-        <a class="btn_add" href="/pages/sound/main">
+        <navigator class="btn_add" open-type="redirect" url="/pages/sound/main">
           <img class="btn_add_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_qSLIQzuRnt.png"/>
-        </a>
+        </navigator>
       </div>
       
       <div v-on:click="bottomClick" class="name_arrow arrow_bottom">
@@ -77,6 +77,7 @@
 import globalStore from '../../stores/global-store.js';
 import audioConfig from './audioConfig.js';
 import Pop from '../../components/Pop';
+import { shareIndex } from '../../utils/index.js';
 
 export default {
   components: {
@@ -340,6 +341,10 @@ export default {
     handleCancel(){
       this.popHidden = true;
     }
+  },
+
+  onShareAppMessage: function(res) {
+    return shareIndex();
   }
 };
 </script>

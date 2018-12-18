@@ -14,7 +14,7 @@
           <img class="item-img" :src="pauseImg" v-show="index===playIndex">
         </div>
         <div class="right-block">
-          <button class="share-btn" open-type="share">
+          <button class="share-btn" open-type="share" :id="index">
             <img class="item-img" :src="shareImg"/>
           </button>
         </div>
@@ -30,6 +30,7 @@ import pauseImg from '../../static/2.png';
 import shareImg from '../../static/9.png';
 import icons from '../data/icons.js';
 import TrackPlayer from '../utils/TrackPlayer.js';
+import { shareIndex } from '../utils/index.js';
 
 export default {
   props: {

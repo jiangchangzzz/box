@@ -8,7 +8,7 @@
 <script>
 import globalStore from '../../stores/global-store.js';
 import WorkList from '../../components/WorkList';
-import { shareWork } from '../../utils/index.js';
+import { shareIndex, shareWork } from '../../utils/index.js';
 
 export default {
   components: {
@@ -16,7 +16,7 @@ export default {
   },
   data: function(){
     return {
-      shareName: '神秘作品'
+      works: []
     }
   },
   computed: {
@@ -24,8 +24,33 @@ export default {
       return globalStore.state.works;
     }
   },
+  mounted(){
+    const pages = getCurrentPages();
+    const query = pages[pages.length - 1].options;
+    if(query.work){
+      let work = null;
+      try{
+        work = JSON.parse(decodeURIComponent(query.work));
+      } catch(error){
+        wx.showToast({
+          title: '加载作品有误，直接创建你的作品吧~',
+          icon: 'none'
+        });
+        this.works = globalStore.state.works;
+      }
+      this.works = [work];
+    } else {
+      this.works = globalStore.state.works;
+    }
+  },
   onShareAppMessage: function(res) {
-    return shareWork(this.shareName);
+    if(res.from === 'menu'){
+      return shareIndex();
+    } else if(res.from === 'button'){
+      const index = parseInt(res.target.id, 10);
+      const work = this.works[index];
+      return shareWork(work);
+    }
   }
 }
 </script>
