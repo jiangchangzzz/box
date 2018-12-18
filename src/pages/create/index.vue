@@ -86,7 +86,7 @@ export default {
   data () {
     return {
       bg:new Array(16),
-      x: 40,
+      x: 0,
       track_base: 120, // 1s=120px
       animationData: {},
       ani: false,

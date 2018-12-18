@@ -1,5 +1,5 @@
 <template>
- <modal title="创建作品" :hidden="hidden" class="modal" @confirm="handleConfirm" @cancel="handleCancel">
+ <modal title="创建作品" v-if="!hidden" class="modal" @confirm="handleConfirm" @cancel="handleCancel">
    <div class="container">
      <div class="form-row">
        <label class="form-label">作品名称</label>
