@@ -11,6 +11,13 @@
         <img v-on:click="copyClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_KGx97ozZJ3.png"/>
         <img v-on:click="deleteClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_7cqKDpBxI8.png"/>
     </div>
+    <div class="track_btn_wrap" style="background-color:#A36BFF" v-if="!createAudioTypeInfo.length">
+        <span style="color:#ffffff;font-size:12px;width:80px;text-align:center;">
+          <span style="display:block;height:20px;">bpm 40</span>
+          <span>44拍</span>
+        </span>
+        <img v-on:click="deleteClick" class="btn_track_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_0ETDel7MpZ.png"/>
+    </div>
   </div>
   <div class="create_wrap">
     <div class="name_list">
@@ -42,17 +49,19 @@
       </div>
       <div class="track_ul">
       <ul id="example-1"  v-bind:style="{transform: 'translateY('+top+'rpx)'}">
-      <movable-area v-for="item in createAudioTypeInfo" :key="item.id" v-bind:style="{transform: 'translateX(-'+translateX+'px)'}" class="track_li" v-on:click="trackClick(item.id)" >
+      <movable-area v-for="item in createAudioTypeInfo" :key="item.id" v-bind:style="{transform: 'translateX(-'+translateX+'rpx)'}" class="track_li" v-on:click="trackClick(item.id)" >
         <movable-view
           v-for="(subItem, i) in createAudioTrackInfo[item.id].list"
           :key="i"
           class="track_item"
           v-bind:class="[curTrack==item.id?'track_item--cur':'']"
-          v-bind:style="{ width: subItem.time * 120 + 'px', marginLeft: subItem.start * 120 + 'px' }"
-          x="0"
+          v-bind:style="{ width: subItem.time * 240 + 'rpx', transform: 'translateX('+subItem.start * 240 + 'rpx)' }"
+          v-bind:x="x"
+          out-of-bounds="false"
           direction="horizontal"
           @change="trackPosChange($event, item.id, i)"
         >
+        <span style="font-size:12px;color:#ffffff;margin-left:10px;line-height:80rpx">{{item.time}}s</span>
         </movable-view>
       </movable-area>
       </ul>
@@ -68,7 +77,6 @@
 import globalStore from '../../stores/global-store.js';
 import audioConfig from './audioConfig.js';
 import Pop from '../../components/Pop';
-import { clearTimeout, setTimeout } from 'timers';
 import { shareIndex } from '../../utils/index.js';
 
 export default {
@@ -78,7 +86,7 @@ export default {
   data () {
     return {
       bg:new Array(16),
-      x: 0,
+      x: 40,
       track_base: 120, // 1s=120px
       animationData: {},
       ani: false,
@@ -90,6 +98,7 @@ export default {
       translateX:0,
       endCount: 0,
       popHidden: true,
+      aniTimer: 0,
       top: 0 //上下滚动
       //createAudioTrackInfo: {},
       // createAudioTypeInfo: []
@@ -109,12 +118,12 @@ export default {
   created: function(){
     console.log("created.....")
     this.createAudio();
+    
   },
   updated: function(){
     // console.log("update....")
     this.createAudio();
   },
-
   methods: {
     playClick: function(){
       if(this.paused){
@@ -129,7 +138,7 @@ export default {
     },
     replayClick: function(){
 
-      this.aniTimer && clearTimeout(this.aniTimer);
+      this.aniTimer && clearTimeout(typeof this.aniTimer === "object" ? this.aniTimer._id : this.aniTimer);
       this.paused = true;
       this.translateX = 0;
 
@@ -173,6 +182,11 @@ export default {
         });
       }
       this.animation();
+      // 加个最大时长保护
+      this.aniMaxTimer = setTimeout(() => {
+        this.paused = true;
+        this.translateX = 0;
+      }, 8000);
     },
     animation(){
       let self = this;
@@ -180,8 +194,10 @@ export default {
       setTimeout(() => {
         
         if(!self.paused){
-          self.translateX+= 12;
+          self.translateX+= 24;
           self.animation();
+        } else {
+          this.aniMaxTimer && clearTimeout(this.aniMaxTimer);
         }
       }, 100);
     },
@@ -230,7 +246,7 @@ export default {
         }
 
       });
-      innerAudioContext.onEnded(function(){
+      function end(){
         self.endCount++;
         console.log("pause end.....")
         console.log("pausecount :", self.endCount)
@@ -243,13 +259,15 @@ export default {
           self.translateX = 0;
           self.ani = false;
           self.pauseCount = 0;
-          self.aniTimer && clearTimeout(self.aniTimer);
+          self.aniTimer && clearTimeout(typeof this.aniTimer === "object" ? this.aniTimer._id : this.aniTimer);
           self.endCount = 0;
           
           return;
         }
 
-      });
+      }
+      innerAudioContext.onEnded(end);
+      innerAudioContext.onError(end);
       this.trackCount++;
       //this.audios[key+ "_" + index] = innerAudioContext;
       globalStore.commit("addAudios",{
@@ -285,20 +303,33 @@ export default {
       globalStore.commit("deleteCreateAudioTrack", { trackInfo });
     },
     trackPosChange: function(e, id, index){
-      console.log("e: ",  e.x)
-      let newAudio = Object.assign({},audioConfig[id]);
-      newAudio.start = e.x / 120;
+      this.posTimer && clearTimeout(this.posTimer);
+      this.posTimer = setTimeout(() => {
+        let trackInfo = Object.assign({}, globalStore.state.createAudioTrackInfo);
+        let audio = trackInfo[id].list[index];
 
-      globalStore.commit("updateCreateAudioTrack",{
-        index,
-        id,
-        newAudio
-      })
+        let newAudio = Object.assign({},audio);
+        newAudio.start = Math.round(e.x / 120 * 2) / 2;
+
+        globalStore.commit("updateCreateAudioTrack",{
+          index,
+          id,
+          newAudio
+        })
+        
+      },60)
+      // this.x = e.x;
     },
     topClick: function(){
+      if(this.top<=-globalStore.state.createAudioTypeInfo.length*135){
+        return;
+      }
       this.top -= 135;
     },
     bottomClick: function(){
+      if(this.top>=globalStore.state.createAudioTypeInfo.length*135){
+        return;
+      }
       this.top += 135;
     },
     handleConfirm(){
@@ -472,12 +503,13 @@ export default {
 }
 .track_bg_line_wrap{
   height:100%;
-  display:flex;
-  flex-direction: row;
 }
 .track_bg_item{
-  width:120px;
+  width:60px;
+  float: left;
+  opacity: .5;
   height:100%;
+  box-sizing: border-box;
   border-right:1px dotted #513CA0;
 }
 .arrow_icon{
