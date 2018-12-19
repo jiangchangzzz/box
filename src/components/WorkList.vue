@@ -36,10 +36,7 @@ export default {
     return {
       playIndex: -1,
       _audioContext: null,
-      playImg: playImg,
-      pauseImg: pauseImg,
-      shareImg: shareImg,
-      icons: icons.reverse()
+      icons: icons
     }
   },
   mounted(){
