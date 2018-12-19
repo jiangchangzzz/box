@@ -10,12 +10,12 @@
       </div>
       <div class="item-right">
         <div class="right-block" @click="handlePlay(index)">
-          <img class="item-img" :src="playImg" v-show="index!==playIndex">
-          <img class="item-img" :src="pauseImg" v-show="index===playIndex">
+          <img class="item-img" src="/static/4.png" v-show="index!==playIndex">
+          <img class="item-img" src="/static/2.png" v-show="index===playIndex">
         </div>
         <div class="right-block">
           <button class="share-btn" open-type="share" :id="index">
-            <img class="item-img" :src="shareImg"/>
+            <img class="item-img" src="/static/9.png"/>
           </button>
         </div>
       </div>
@@ -25,12 +25,8 @@
 
 <script>
 import globalStore from '../stores/global-store.js';
-import playImg from '../../static/4.png';
-import pauseImg from '../../static/2.png';
-import shareImg from '../../static/9.png';
 import icons from '../data/icons.js';
 import TrackPlayer from '../utils/TrackPlayer.js';
-import { shareIndex } from '../utils/index.js';
 
 export default {
   props: {

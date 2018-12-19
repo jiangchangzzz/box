@@ -6,7 +6,7 @@ export default {
     name: "架子鼓",   // 名称
     start: 0,
     desc: "架子鼓",   // 描述
-    icon: "../../../static/1212.png",   // 封面图片
+    icon: "/static/2525.png",   // 封面图片
     type: 0,
     isLock: false
   },
@@ -17,7 +17,7 @@ export default {
     name: "贝斯",
     desc: "贝斯",
     start: 0,
-    icon: "../../../static/2222.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -27,7 +27,7 @@ export default {
     time: 0.5,
     name: "猫_0.5s",
     start: 0,
-    icon: "../../../static/2323.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -37,7 +37,7 @@ export default {
     time: 1,
     name: "猫_1s",
     start: 0,
-    icon: "../../../static/2424.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -47,7 +47,7 @@ export default {
     time: 0.5,
     name: "牛_0.5s",
     start: 0,
-    icon: "../../../static/2525.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -57,7 +57,7 @@ export default {
     time: 1,
     name: "牛_1s",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -67,7 +67,7 @@ export default {
     time: 0.5,
     name: "羊_0.5s",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -77,7 +77,7 @@ export default {
     time: 1,
     name: "羊_1s",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -87,7 +87,7 @@ export default {
     time: 0.5,
     name: "猪_0.5s",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -97,7 +97,7 @@ export default {
     time: 1,
     name: "猪_1s",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -107,7 +107,7 @@ export default {
     time: 0.5,
     name: "phat_vox_bd",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -117,7 +117,7 @@ export default {
     time: 0.5,
     name: "vox_bd",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -127,7 +127,7 @@ export default {
     time: 0.5,
     name: "vox_breathy",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -137,7 +137,7 @@ export default {
     time: 0.5,
     name: "vox_crash",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -147,7 +147,7 @@ export default {
     time: 0.5,
     name: "vox_hi_hat",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -157,7 +157,7 @@ export default {
     time: 0.5,
     name: "vox_lofi",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -167,7 +167,7 @@ export default {
     time: 0.5,
     name: "vox_nare",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
@@ -177,7 +177,7 @@ export default {
     time: 0.5,
     name: "vox_scratch",
     start: 0,
-    icon: "../../../static/box.png",
+    icon: "/static/2525.png",
     type: 0,
     isLock: false
   },
