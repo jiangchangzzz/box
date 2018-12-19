@@ -1,6 +1,7 @@
 <template>
   <div class="wrap">
   <div class="header">
+    <img class="header_bg" src="https://qzonestyle.gtimg.cn/aoi/sola/20181219193449_ysUGkZcAgg.png"/>
     <div class="btn_wrap">
       <img v-on:click="playClick" class="btn_img" v-bind:src="!createAudioTypeInfo.length ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_dNr8rXzpv0.png' : !paused ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_ZAKXGjZ0VC.png' : 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_6ibDYgcgt3.png'"/>
       <img v-on:click="replayClick" class="btn_img" v-bind:src="!createAudioTypeInfo.length ? 'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_i2PpSecveN.png' :'https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_TAFmYHN7Il.png'"/>
@@ -410,7 +411,8 @@ export default {
   left:0;
   right:0;
   height: 160px;
-  background-color: #383838;
+  background-color: #1D1246;
+  text-align: center;
 }
 .name_arrow{
   width: 83px;
@@ -518,5 +520,9 @@ export default {
 }
 .arrow_icon_down{
   transform: rotate(180deg)
+}
+.header_bg{
+  width: 91px;
+  height:100px;
 }
 </style>
