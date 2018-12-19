@@ -2,7 +2,7 @@
   <ul class="list">
       <li class="list-item" v-for="(sound, index) in sounds" :key="sound.id">
         <div class="item-left">
-          <img class="item-icon" :src="icons[index % icons.length]"/>
+          <img class="item-icon" :src="sound.icon"/>
           <div class="item-text">
             <p class="item-text-name">{{sound.name}}</p>
             <p class="item-text-desc">{{sound.desc || sound.name}}</p>
@@ -10,15 +10,15 @@
         </div>
         <div class="item-right">
           <div class="right-block" @click="handlePlay(index)">
-            <img class="item-img" :src="playImg" v-show="index!==playIndex"/>
-            <img class="item-img" :src="pauseImg" v-show="index===playIndex"/>
+            <img class="item-img" src="/static/4.png" v-show="index!==playIndex"/>
+            <img class="item-img" src="/static/2.png" v-show="index===playIndex"/>
           </div>
           <div class="right-block" @click="handleAdd(index)">
             <template v-if="!sound.isLock">
-              <img class="item-img" :src="addImg" v-show="isAbledAdd[index]"/>
-              <img class="item-img" :src="minusImg" v-show="!isAbledAdd[index]"/>
+              <img class="item-img" src="/static/3.png" v-show="isAbledAdd[index]"/>
+              <img class="item-img" src="/static/1.png" v-show="!isAbledAdd[index]"/>
             </template>
-            <img class="item-img" :src="lockImg" v-else/>
+            <img class="item-img" src="/static/8.png" v-else/>
           </div>
         </div>
       </li>
@@ -27,12 +27,6 @@
 
 <script>
 import globalStore from '../stores/global-store.js';
-import playImg from '../../static/4.png';
-import pauseImg from '../../static/2.png';
-import addImg from '../../static/3.png';
-import minusImg from '../../static/1.png';
-import lockImg from '../../static/8.png';
-import icons from '../data/icons.js';
 
 export default {
   props: {
@@ -41,13 +35,7 @@ export default {
   data: function(){
     return {
       playIndex: -1,
-      _audioContext: null,
-      playImg: playImg,
-      pauseImg: pauseImg,
-      addImg: addImg,
-      minusImg: minusImg,
-      lockImg: lockImg,
-      icons: icons
+      _audioContext: null
     }
   },
   computed: {
