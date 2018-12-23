@@ -328,7 +328,7 @@ export default {
       this.top -= 135;
     },
     bottomClick: function(){
-      if(this.top>=globalStore.state.createAudioTypeInfo.length*135){
+      if(this.top >= 0){
         return;
       }
       this.top += 135;
