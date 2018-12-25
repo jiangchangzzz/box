@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import audioConfig from '../pages/create/audioConfig';
 import works from '../data/works';
+import { handleError } from '../utils/index';
 
 Vue.use(Vuex);
 
@@ -9,6 +10,7 @@ const baseUrl = process.env.API_BASE_URL;
 
 export default new Vuex.Store({
   state: {
+    openid: '',
     userInfo: null,
     createAudioTypeInfo: [], //音轨类型
     createAudioTrackInfo: {}, //音轨，二维数组
@@ -17,6 +19,9 @@ export default new Vuex.Store({
     audios: {}
   },
   mutations: {
+    updateOpenid(state, payload){
+      state.openid = payload.openid;
+    },
     setUserInfo(state, payload) {
       state.userInfo = payload.userInfo;
     },
@@ -64,24 +69,35 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // 获取用户openid和用户信息
     getUserInfo(context) {
       // 登录
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          // wx.request({
-          //   url: `${baseUrl}/login`,
-          //   data: {
-          //     code: res.code
-          //   },
-          //   success: res => {
-          //     if(res.data.code === 0){
-          //       console.log(res.data.data);
-          //     } else {
-          //       console.log(res.data);
-          //     }
-          //   }
-          // });
+          wx.request({
+            url: `${baseUrl}/login`,
+            data: {
+              code: res.code
+            },
+            success: res => {
+              const body = res.data;
+              if(body.code === 0){
+                console.log(body.openid);
+                context.commit('updateOpenid', {
+                  openid: body.data.openid
+                });
+              } else {
+                handleError(body.message);
+              }
+            },
+            fail: res => {
+              handleError();
+            }
+          });
+        },
+        fail: res => {
+          handleError();
         }
       });
 
@@ -94,12 +110,6 @@ export default new Vuex.Store({
               success: res => {
                 // 可以将 res 发送给后台解码出 unionId
                 context.commit('setUserInfo', {userInfo: res.userInfo});
-
-                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                // 所以此处加入 callback 以防止这种情况
-                // if (this.userInfoReadyCallback) {
-                //   this.userInfoReadyCallback(res)
-                // }
               }
             })
           }
