@@ -334,7 +334,7 @@ export default {
         id,
         newAudio
       })
-      }, 2000);
+      },0);
       
     },
     trackPosChange: function(e, id, index){
