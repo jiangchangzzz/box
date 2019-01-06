@@ -34,17 +34,31 @@ export default new Vuex.Store({
         id: payload.newAudio.id,
         list: new Array(payload.newAudio)
       }};
-      console.log("state: ",state.createAudioTypeInfo)
+
       // state.createAudioTrackInfo[payload.newAudio.id].push(payload.newAudio);
     },
     deleteCreateAudioType(state, payload){
       state.createAudioTypeInfo.splice(payload.index,1);
     },
     addCreateAudioTrack(state, payload){
-      state.createAudioTrackInfo[payload.id].list.push(payload.newAudio);
+      // state.createAudioTrackInfo[payload.id].list.push(payload.newAudio);
+      let list = state.createAudioTrackInfo[payload.id].list.slice(0);
+      list.push(payload.newAudio);
+      //state.createAudioTrackInfo[payload.id].list.splice(payload.index,1,payload.newAudio)
+      state.createAudioTrackInfo = {...state.createAudioTrackInfo, [payload.id]: {
+        id: payload.newAudio.id,
+        list: list
+      }};
     },
     updateCreateAudioTrack(state, payload){
-      state.createAudioTrackInfo[payload.id].list.splice(payload.index,1,payload.newAudio)
+      let list = state.createAudioTrackInfo[payload.id].list.slice(0);
+      list.splice(payload.index,1,payload.newAudio);
+      //state.createAudioTrackInfo[payload.id].list.splice(payload.index,1,payload.newAudio)
+      state.createAudioTrackInfo = {...state.createAudioTrackInfo, [payload.id]: {
+        id: payload.newAudio.id,
+        list: list
+      }};
+      
     },
     deleteCreateAudioTrack(state, payload){
       state.createAudioTrackInfo = payload.trackInfo;

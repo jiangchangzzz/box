@@ -49,21 +49,24 @@
         </div>        
       </div>
       <div class="track_ul">
-      <ul id="example-1"  v-bind:style="{transform: 'translateY('+top+'rpx)'}">
-      <movable-area v-for="item in createAudioTypeInfo" :key="item.id" v-bind:style="{transform: 'translateX(-'+translateX+'rpx)'}" class="track_li" v-on:click="trackClick(item.id)" >
+      <ul id="example-1"  v-bind:style="{transform: 'translateY('+top+'rpx)'}" >
+      <movable-area v-for="item in createAudioTypeInfo" :key="item.id"  v-bind:style="{transform: 'translateX(-'+translateX+'rpx)'}" class="track_li" v-on:click="trackClick(item.id)" >
+        <div v-if="createAudioTrackInfo[item.id]">
         <movable-view
           v-for="(subItem, i) in createAudioTrackInfo[item.id].list"
           :key="i"
           class="track_item"
           v-bind:class="[curTrack==item.id?'track_item--cur':'']"
-          v-bind:style="{ width: subItem.time * 240 + 'rpx', transform: 'translateX('+subItem.start * 240 + 'rpx)' }"
-          v-bind:x="x"
+          v-bind:style="{ width: subItem.time * 240 + 'rpx' }"
+          v-bind:x="subItem.start*120"
           out-of-bounds="false"
           direction="horizontal"
+          v-on:touchend="touchend(item.id, i)"
           @change="trackPosChange($event, item.id, i)"
         >
         <span style="font-size:12px;color:#ffffff;margin-left:10px;line-height:80rpx">{{item.time}}s</span>
         </movable-view>
+        </div>
       </movable-area>
       </ul>
       </div>
@@ -100,8 +103,8 @@ export default {
       endCount: 0,
       popHidden: true,
       aniTimer: 0,
-      top: 0 //上下滚动
-      //createAudioTrackInfo: {},
+      top: 0, //上下滚动
+      // createAudioTrackInfo: {},
       // createAudioTypeInfo: []
     }
   },
@@ -110,7 +113,7 @@ export default {
       return globalStore.state.createAudioTypeInfo;
     },
     createAudioTrackInfo(){
-      return globalStore.state.createAudioTrackInfo;
+      return JSON.parse(JSON.stringify(globalStore.state.createAudioTrackInfo));
     },
     audios(){
       return globalStore.state.audios;
@@ -121,8 +124,11 @@ export default {
     this.createAudio();
     
   },
+  beforeUpdate(){
+    console.log("beforeupdate:",globalStore.state.createAudioTrackInfo)
+  },
   updated: function(){
-    // console.log("update....")
+    console.log("update....")
     this.createAudio();
   },
   methods: {
@@ -178,6 +184,7 @@ export default {
           let k = key;
           let i = index;
           setTimeout(function() {
+            self.audios[k + "_" + i].src = item.src;
             self.audios[k + "_" + i].play();
           },item.start * 1e3);
         });
@@ -216,6 +223,9 @@ export default {
       let self = this;
       // console.log("create audio....")
       let tracks = globalStore.state.createAudioTrackInfo;
+      if(!Object.keys(tracks).length){
+        return;
+      }
       for(var key in tracks){
         let trackList = tracks[key].list;
         trackList.forEach((item, index) => {
@@ -229,7 +239,7 @@ export default {
       let self = this;
       console.log("create audio:", item)
       const innerAudioContext = wx.createInnerAudioContext()
-      innerAudioContext.src = item.src;
+      
       innerAudioContext.onPlay(function(){
         //console.log("play start....")
       });
@@ -249,13 +259,13 @@ export default {
       });
       function end(){
         self.endCount++;
-        console.log("pause end.....")
-        console.log("pausecount :", self.endCount)
-        console.log("trackc:", self.trackCount)
+        // console.log("pause end.....")
+        // console.log("pausecount :", self.endCount)
+        // console.log("trackc:", self.trackCount)
 
         if(self.endCount === self.trackCount){
-          console.log("ended.....")
-          console.log(self.aniTimer)
+          // console.log("ended.....")
+          // console.log(self.aniTimer)
           self.paused = true;
           self.translateX = 0;
           self.ani = false;
@@ -269,12 +279,15 @@ export default {
       }
       innerAudioContext.onEnded(end);
       innerAudioContext.onError(end);
+
       this.trackCount++;
       //this.audios[key+ "_" + index] = innerAudioContext;
       globalStore.commit("addAudios",{
         id: key+ "_" + index,
         newAudio: innerAudioContext
       });
+
+      innerAudioContext.src = item.src;
     },
     trackClick: function(id){
       this.curTrack = id;
@@ -285,7 +298,8 @@ export default {
       let audioList = globalStore.state.createAudioTrackInfo[this.curTrack].list;
 
       newAudio.start = audioList.length * newAudio.time;
-      globalStore.dispatch("onaddCreateAudioTrack", {id: this.curTrack, newAudio: newAudio });
+      globalStore.commit("addCreateAudioTrack", {id: this.curTrack, newAudio: newAudio });
+      //globalStore.dispatch("addCreateAudioTrack", {id: this.curTrack, newAudio: newAudio });
     },
     deleteClick: function(){
       
@@ -303,23 +317,46 @@ export default {
       globalStore.commit("deleteCreateAudioType", {index});
       globalStore.commit("deleteCreateAudioTrack", { trackInfo });
     },
-    trackPosChange: function(e, id, index){
-      this.posTimer && clearTimeout(this.posTimer);
-      this.posTimer = setTimeout(() => {
+    touchend:function(id, index){
+      setTimeout(() => {
         let trackInfo = Object.assign({}, globalStore.state.createAudioTrackInfo);
-        let audio = trackInfo[id].list[index];
+      let audio = trackInfo[id].list[index];
 
-        let newAudio = Object.assign({},audio);
-        newAudio.start = Math.round(e.x / 120 * 2) / 2;
+      let newAudio = Object.assign({},audio);
+      newAudio.start = Math.round(this.touchx / 120 * 2) / 2;
+      console.log("pos start:",newAudio.start);
+      console.log("touchx:", this.touchx)
+      this.touchx = 0;
+      
+      //this.x = e.x;
+      globalStore.commit("updateCreateAudioTrack",{
+        index,
+        id,
+        newAudio
+      })
+      }, 2000);
+      
+    },
+    trackPosChange: function(e, id, index){
+      // this.posTimer && clearTimeout(this.posTimer);
+      // console.log("e.x:", e.x)
+      // this.posTimer = setTimeout(() => {
+      //   let trackInfo = Object.assign({}, globalStore.state.createAudioTrackInfo);
+      //   let audio = trackInfo[id].list[index];
 
-        globalStore.commit("updateCreateAudioTrack",{
-          index,
-          id,
-          newAudio
-        })
+      //   let newAudio = Object.assign({},audio);
+      //   newAudio.start = Math.round(e.x / 120 * 2) / 2;
+      //   console.log("pos start:",newAudio.start);
+      //   //this.x = e.x;
+      //   globalStore.commit("updateCreateAudioTrack",{
+      //     index,
+      //     id,
+      //     newAudio
+      //   })
         
-      },60)
-      // this.x = e.x;
+      // },20)
+      this.touchx = e.x;
+      
     },
     topClick: function(){
       if(this.top<=-globalStore.state.createAudioTypeInfo.length*135){
