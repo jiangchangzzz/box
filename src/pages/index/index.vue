@@ -1,7 +1,7 @@
 <template>
   <div class="container" style="background-image: url(../../../static/index-bg.png)">
     <div class="header">
-     <img class="header-img" src="../../../static/logo2.png"/> 
+     <img class="header-img" src="../../../static/index-logo.png"/> 
     </div>
     <div class="main">
       <ul class="main-list">
@@ -51,14 +51,10 @@ export default {
         createAudioTrackInfo: work.createAudioTrackInfo
       });  
       
-      wx.redirectTo({
+      wx.navigateTo({
         url: '/pages/create/main'
       });
     }
-    // const work = works[0];
-    // globalStore.commit('updateCreateInfo', {
-    //     createAudioTrackInfo: work.createAudioTrackInfo
-    // });
   },
   onShareAppMessage: function(res) {
       return shareIndex();

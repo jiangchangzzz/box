@@ -80,6 +80,7 @@ export default {
   margin-right: 40rpx;
   font-size: 32rpx;
   color: #000;
+  flex-shrink: 0;
 }
 
 .form-input{

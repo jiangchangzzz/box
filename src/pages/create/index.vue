@@ -82,6 +82,7 @@ import globalStore from '../../stores/global-store.js';
 import audioConfig from './audioConfig.js';
 import Pop from '../../components/Pop';
 import { shareIndex } from '../../utils/index.js';
+import styles from '../../data/styles.js';
 
 export default {
   components: {
@@ -110,7 +111,15 @@ export default {
   },
   computed: {
     createAudioTypeInfo(){
-      return globalStore.state.createAudioTypeInfo;
+      const defaultIcon = '/static/style/bug.png';
+      let res = [];
+      globalStore.state.createAudioTypeInfo.forEach(info => {
+        let item = Object.assign({}, info);
+        const styleInfo = styles.find(style => style.id === item.style);
+        item.icon = styleInfo ? styleInfo.icon : defaultIcon;
+        res.push(item);
+      });
+      return res;
     },
     createAudioTrackInfo(){
       return JSON.parse(JSON.stringify(globalStore.state.createAudioTrackInfo));
@@ -434,7 +443,6 @@ export default {
 }
 .track_item{
   background-color: #A36BFF;
-  width: 100px;
   height: 40px;
   border-radius: 20px;
   top: 12px;
@@ -525,6 +533,9 @@ export default {
   font-size: 12px;
   color: black;
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
 }
 .track_name--cur{
   background-color:#FF4646;

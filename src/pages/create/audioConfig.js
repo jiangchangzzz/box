@@ -8,6 +8,7 @@ export default {
     desc: "架子鼓",   // 描述
     icon: "/static/2525.png",   // 封面图片
     type: 0,
+    style: 7,
     isLock: false
   },
   '1102844' : {
@@ -19,166 +20,678 @@ export default {
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 7,
     isLock: false
   },
-  '4463' : {
-    id: '4463',
+  '1103000' : {
+    id: '1103000',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103000.mp3',
     time: 0.5,
     name: "猫_0.5s",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 2,
     isLock: false
   },
-  '4464' : {
-    id: '4464',
+  '1103001' : {
+    id: '1103001',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103001.mp3',
     time: 1,
     name: "猫_1s",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 2,
     isLock: false
   },
-  '4465' : {
-    id: '4465',
+  '1103002' : {
+    id: '1103002',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103002.mp3',
     time: 0.5,
     name: "牛_0.5s",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 2,
     isLock: false
   },
-  '4466' : {
-    id: '4466',
+  '1103003' : {
+    id: '1103003',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103003.mp3',
     time: 1,
     name: "牛_1s",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 2,
     isLock: false
   },
-  '4467' : {
-    id: '4467',
+  '1103004' : {
+    id: '1103004',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103004.mp3',
     time: 0.5,
     name: "羊_0.5s",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 2,
     isLock: false
   },
-  '4468' : {
-    id: '4468',
+  '1103005' : {
+    id: '1103005',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103005.mp3',
     time: 1,
     name: "羊_1s",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 2,
     isLock: false
   },
-  '4469' : {
-    id: '4469',
+  '1103006' : {
+    id: '1103006',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103006.mp3',
     time: 0.5,
     name: "猪_0.5s",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 2,
     isLock: false
   },
-  '4470' : {
-    id: '4470',
+  '1103007' : {
+    id: '1103007',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103007.mp3',
     time: 1,
     name: "猪_1s",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 2,
     isLock: false
   },
-  '4471' : {
-    id: '4471',
+  '1103008' : {
+    id: '1103008',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103008.mp3',
     time: 0.5,
     name: "phat_vox_bd",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 6,
     isLock: false
   },
-  '4472' : {
-    id: '4472',
+  '1103009' : {
+    id: '1103009',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103009.mp3',
     time: 0.5,
     name: "vox_bd",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 6,
     isLock: false
   },
-  '4473' : {
-    id: '4473',
+  '1103010' : {
+    id: '1103010',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103010.mp3',
     time: 0.5,
     name: "vox_breathy",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 6,
     isLock: false
   },
-  '4474' : {
-    id: '4474',
+  '1103011' : {
+    id: '1103011',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103011.mp3',
     time: 0.5,
     name: "vox_crash",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 6,
     isLock: false
   },
-  '4475' : {
-    id: '4475',
+  '1103012' : {
+    id: '1103012',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103012.mp3',
     time: 0.5,
     name: "vox_hi_hat",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 6,
     isLock: false
   },
-  '4476' : {
-    id: '4476',
+  '1103013' : {
+    id: '1103013',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103013.mp3',
     time: 0.5,
     name: "vox_lofi",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 6,
     isLock: false
   },
-  '4477' : {
-    id: '4477',
+  '1103014' : {
+    id: '1103014',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103014.mp3',
     time: 0.5,
     name: "vox_nare",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 6,
     isLock: false
   },
-  '4478' : {
-    id: '4478',
+  '1103015' : {
+    id: '1103015',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103015.mp3',
     time: 0.5,
     name: "vox_scratch",
     start: 0,
     icon: "/static/2525.png",
     type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1132992' : {
+    id: '1132992',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132992.mp3',
+    time: 1,
+    name: "狗",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 2,
+    isLock: false
+  },
+  '1132993' : {
+    id: '1132993',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132993.mp3',
+    time: 2,
+    name: "狗嗅声",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 2,
+    isLock: false
+  },
+  '1132994' : {
+    id: '1132994',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132994.mp3',
+    time: 1,
+    name: "马",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 2,
+    isLock: false
+  },
+  '1132995' : {
+    id: '1132995',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132995.mp3',
+    time: 1,
+    name: "蟋蟀",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 2,
+    isLock: false
+  },
+  '1132996' : {
+    id: '1132996',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132996.mp3',
+    time: 1,
+    name: "鸭",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 2,
+    isLock: false
+  },
+  '1132996' : {
+    id: '1132996',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132996.mp3',
+    time: 1,
+    name: "鸭",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 2,
+    isLock: false
+  },
+  '1132997' : {
+    id: '1132997',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132997.mp3',
+    time: 1,
+    name: "火影忍者",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 1,
+    isLock: false
+  },
+  '1132998' : {
+    id: '1132998',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132998.mp3',
+    time: 4,
+    name: "小女孩笑",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 1,
+    isLock: false
+  },
+  '1132999' : {
+    id: '1132999',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132999.mp3',
+    time: 1,
+    name: "death",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 1,
+    isLock: false
+  },
+  '1' : {
+    id: '1',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132999.mp3',
+    time: 1,
+    name: "真相只有一个",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 1,
+    isLock: true
+  },
+  '1133000' : {
+    id: '1133000',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133000.mp3',
+    time: 1,
+    name: "大X4",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 3,
+    isLock: false
+  },
+  '1133001' : {
+    id: '1133001',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133001.mp3',
+    time: 1,
+    name: "马大爷X2",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 3,
+    isLock: false
+  },
+  '1133002' : {
+    id: '1133002',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133002.mp3',
+    time: 1,
+    name: "马X4",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 3,
+    isLock: false
+  },
+  '1133003' : {
+    id: '1133003',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133003.mp3',
+    time: 1,
+    name: "爷X4",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 3,
+    isLock: false
+  },
+  '1133004' : {
+    id: '1133004',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133004.mp3',
+    time: 1,
+    name: "最帅",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 3,
+    isLock: false
+  },
+  '1133005' : {
+    id: '1133005',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133005.mp3',
+    time: 1,
+    name: "balabiba",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 3,
+    isLock: false
+  },
+  '1133006' : {
+    id: '1133006',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133006.mp3',
+    time: 1,
+    name: "skrskr",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 3,
+    isLock: false
+  },
+  '1133007' : {
+    id: '1133007',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133007.mp3',
+    time: 16,
+    name: "贝加尔湖畔",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 5,
+    isLock: false
+  },
+  '1133008' : {
+    id: '1133008',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133008.mp3',
+    time: 8,
+    name: "猫和老鼠",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 5,
+    isLock: false
+  },
+  '1133009' : {
+    id: '1133009',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133009.mp3',
+    time: 16,
+    name: "少先队员",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 5,
+    isLock: false
+  },
+  '0' : {
+    id: '0',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133009.mp3',
+    time: 16,
+    name: "装甲兵进行曲",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 5,
+    isLock: true
+  },
+  '1133010' : {
+    id: '1133010',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133010.mp3',
+    time: 2,
+    name: "风",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 4,
+    isLock: false
+  },
+  '1133011' : {
+    id: '1133011',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133011.mp3',
+    time: 2,
+    name: "雷雨",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 4,
+    isLock: false
+  },
+  '1133012' : {
+    id: '1133012',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133012.mp3',
+    time: 4,
+    name: "森林鸟鸣",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 4,
+    isLock: false
+  },
+  '1133013' : {
+    id: '1133013',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133013.mp3',
+    time: 0.5,
+    name: "水滴",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 4,
+    isLock: false
+  },
+  '1133014' : {
+    id: '1133014',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133014.mp3',
+    time: 0.5,
+    name: "水滴空灵",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 4,
+    isLock: false
+  },
+  '1133015' : {
+    id: '1133015',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133015.mp3',
+    time: 1,
+    name: "溪水",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 4,
+    isLock: false
+  },
+  '1133016' : {
+    id: '1133016',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133016.mp3',
+    time: 2,
+    name: "下雨",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 4,
+    isLock: false
+  },
+  '1133017' : {
+    id: '1133017',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133017.mp3',
+    time: 5,
+    name: "alpha_1",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133018' : {
+    id: '1133018',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133018.mp3',
+    time: 5,
+    name: "alpha_2",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133019' : {
+    id: '1133019',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133019.mp3',
+    time: 5,
+    name: "alpha_3",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133020' : {
+    id: '1133020',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133020.mp3',
+    time: 5,
+    name: "alpha_4",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133021' : {
+    id: '1133021',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133021.mp3',
+    time: 5,
+    name: "alpha_5",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133022' : {
+    id: '1133022',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133022.mp3',
+    time: 5,
+    name: "alpha_6",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133023' : {
+    id: '1133023',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133023.mp3',
+    time: 5,
+    name: "alpha_7",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133024' : {
+    id: '1133024',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133024.mp3',
+    time: 5,
+    name: "alpha_8",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133025' : {
+    id: '1133025',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133025.mp3',
+    time: 5,
+    name: "alpha_9",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133026' : {
+    id: '1133026',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133026.mp3',
+    time: 5,
+    name: "alpha_10",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133027' : {
+    id: '1133027',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133027.mp3',
+    time: 5,
+    name: "alpha_11",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133028' : {
+    id: '1133028',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133028.mp3',
+    time: 5,
+    name: "alpha_12",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133029' : {
+    id: '1133029',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133029.mp3',
+    time: 5,
+    name: "alpha_13",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133030' : {
+    id: '1133030',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133030.mp3',
+    time: 5,
+    name: "alpha_14",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133031' : {
+    id: '1133031',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133031.mp3',
+    time: 5,
+    name: "alpha_15",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133032' : {
+    id: '1133032',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133032.mp3',
+    time: 5,
+    name: "alpha_16",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
+    isLock: false
+  },
+  '1133033' : {
+    id: '1133033',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133033.mp3',
+    time: 5,
+    name: "alpha_17",
+    start: 0,
+    icon: "/static/2525.png",
+    type: 0,
+    style: 6,
     isLock: false
   },
 }

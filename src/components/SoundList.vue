@@ -2,10 +2,10 @@
   <ul class="list">
       <li class="list-item" v-for="(sound, index) in sounds" :key="sound.id">
         <div class="item-left">
-          <img class="item-icon" :src="sound.icon"/>
+          <img class="item-icon" :src="icon"/>
           <div class="item-text">
             <p class="item-text-name">{{sound.name}}</p>
-            <p class="item-text-desc">{{sound.desc || sound.name}}</p>
+            <p class="item-text-desc">{{sound.desc || sound.time + 's'}}</p>
           </div>
         </div>
         <div class="item-right">
@@ -30,7 +30,8 @@ import globalStore from '../stores/global-store.js';
 
 export default {
   props: {
-    data: Array
+    data: Array,
+    icon: String
   },
   data: function(){
     return {
@@ -74,7 +75,19 @@ export default {
       }
     },
     handleAdd(index){
-      if(!this.isAbledAdd[index] || this.sounds[index].isLock){
+      if(!this.isAbledAdd[index]){
+        wx.showToast({
+          title: '当前声音已添加~',
+          icon: 'none'
+        });
+        return;
+      }
+
+      if(this.sounds[index].isLock){
+        wx.showToast({
+          title: '分享或看广告解锁当前音效~',
+          icon: 'none'
+        });
         return;
       }
 
