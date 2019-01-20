@@ -50,24 +50,25 @@
       </div>
       <div class="track_ul">
       <ul id="example-1"  v-bind:style="{transform: 'translateY('+top+'rpx)'}" >
-      <movable-area v-for="item in createAudioTypeInfo" :key="item.id"  v-bind:style="{transform: 'translateX(-'+translateX+'rpx)'}" class="track_li" v-on:click="trackClick(item.id)" >
-        <div v-if="createAudioTrackInfo[item.id]">
-        <movable-view
+      <div v-for="item in createAudioTypeInfo" :key="item.id"  v-bind:style="{transform: 'translateX(-'+translateX+'rpx)'}" class="track_li" v-on:click="trackClick(item.id)" >
+        <div v-if="createAudioTrackInfo[item.id]" class="track_item_wrap">
+        <div
           v-for="(subItem, i) in createAudioTrackInfo[item.id].list"
           :key="i"
           class="track_item"
           v-bind:class="[curTrack==item.id?'track_item--cur':'']"
-          v-bind:style="{ width: subItem.time * 240 + 'rpx' }"
-          v-bind:x="subItem.start*120"
+          v-bind:style="{ width: subItem.time * 240 + 'rpx',transform: 'translateX('+subItem.start * 240+'rpx)' }"
           out-of-bounds="false"
           direction="horizontal"
-          v-on:touchend="touchend(item.id, i)"
+          v-on:touchstart="touchstart($event,item.id, i)"
+          v-on:touchmove="touchmove($event,item.id, i)"
+          v-on:touchend="touchend($event,item.id, i)"
           @change="trackPosChange($event, item.id, i)"
         >
         <span style="font-size:12px;color:#ffffff;margin-left:10px;line-height:80rpx">{{item.time}}s</span>
-        </movable-view>
         </div>
-      </movable-area>
+        </div>
+      </div>
       </ul>
       </div>
     </div>
@@ -326,13 +327,45 @@ export default {
       globalStore.commit("deleteCreateAudioType", {index});
       globalStore.commit("deleteCreateAudioTrack", { trackInfo });
     },
-    touchend:function(id, index){
-      setTimeout(() => {
+    touchstart:function(e, id, index){
+      this.touchStartX = e.clientX;
+      this.touchx = 0;
+      console.log("touchstart e:",e)
+    },
+    touchmove:function(e, id, index){
+      console.log("touchmove: ",e)
+      let delta = e.clientX - this.touchStartX;
+
+      let trackInfo = Object.assign({}, globalStore.state.createAudioTrackInfo);
+      let audio = trackInfo[id].list[index];
+
+      let newAudio = Object.assign({},audio);
+      newAudio.start = Math.max(newAudio.start + ((delta - this.touchx) / 120 * 2) / 2, 0);
+
+      console.log("pos start:",newAudio.start);
+      console.log("touchx:", this.touchx)
+      this.touchx = delta;
+      
+      //this.x = e.x;
+      globalStore.commit("updateCreateAudioTrack",{
+        index,
+        id,
+        newAudio
+      })
+
+    },
+    touchend:function(e,id, index){
+      console.log("touchend: ",e)
+      this.posChange(id, index);
+    },
+    posChange: function(id, index){
+
         let trackInfo = Object.assign({}, globalStore.state.createAudioTrackInfo);
       let audio = trackInfo[id].list[index];
 
       let newAudio = Object.assign({},audio);
-      newAudio.start = Math.round(this.touchx / 120 * 2) / 2;
+      //newAudio.start = Math.max(newAudio.start + Math.round(this.touchx / 120 * 2) / 2, 0);
+      newAudio.start = Math.round(newAudio.start * 2) / 2;
       console.log("pos start:",newAudio.start);
       console.log("touchx:", this.touchx)
       this.touchx = 0;
@@ -343,7 +376,7 @@ export default {
         id,
         newAudio
       })
-      },0);
+
       
     },
     trackPosChange: function(e, id, index){
@@ -446,6 +479,7 @@ export default {
   height: 40px;
   border-radius: 20px;
   top: 12px;
+  position: absolute;
 }
 .track_item--cur{
   background-color: #FF4646;
@@ -572,5 +606,9 @@ export default {
 .header_bg{
   width: 91px;
   height:100px;
+}
+.track_item_wrap{
+  display:flex;
+  flex-direction: row;
 }
 </style>
