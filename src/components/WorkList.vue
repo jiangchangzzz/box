@@ -2,7 +2,7 @@
   <ul class="list">
     <li class="list-item" v-for="(work, index) in works" :key="index">
       <div class="item-left">
-        <img class="item-icon" :src="icons[index % icons.length]">
+        <img class="item-icon" src="../../static/style/cd.png">
         <div class="item-text">
           <p class="item-text-name">{{work.name}}</p>
           <p class="item-text-desc">{{work.desc || work.name}}</p>
@@ -25,7 +25,6 @@
 
 <script>
 import globalStore from '../stores/global-store.js';
-import icons from '../data/icons.js';
 import TrackPlayer from '../utils/TrackPlayer.js';
 
 export default {
@@ -35,8 +34,7 @@ export default {
   data: function(){
     return {
       playIndex: -1,
-      _audioContext: null,
-      icons: icons
+      _audioContext: null
     }
   },
   mounted(){

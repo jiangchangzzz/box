@@ -434,17 +434,6 @@ export default {
     style: 2,
     isLock: false
   },
-  '1132996' : {
-    id: '1132996',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132996.mp3',
-    time: 1,
-    name: "鸭",
-    start: 0,
-    icon: "/static/2525.png",
-    type: 0,
-    style: 2,
-    isLock: false
-  },
   '1132997' : {
     id: '1132997',
     src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132997.mp3',
