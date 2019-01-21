@@ -34,7 +34,7 @@
           <img class="btn_add_img" src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_qSLIQzuRnt.png"/>
         </navigator>
       </div>
-      
+
       <div v-on:click="bottomClick" class="name_arrow arrow_bottom">
         <img src="https://qzonestyle.gtimg.cn/aoi/sola/20181215175806_IACrAsyOHG.png" class="arrow_icon arrow_icon_down"/>
       </div>
@@ -46,20 +46,21 @@
         </div>
         <div class="track_bg_line_wrap">
           <div v-for="(item, index) in bg" :key="index" class="track_bg_item"></div>
-        </div>        
+        </div>
       </div>
       <div class="track_ul">
       <ul id="example-1"  v-bind:style="{transform: 'translateY('+top+'rpx)'}" >
-      <div v-for="item in createAudioTypeInfo" :key="item.id"  v-bind:style="{transform: 'translateX(-'+translateX+'rpx)'}" class="track_li" v-on:click="trackClick(item.id)" >
+      <div v-for="item in createAudioTypeInfo" :key="item.id"  v-bind:style="{transform: 'translateX(-'+translateX+'rpx)'}" class="track_li" >
         <div v-if="createAudioTrackInfo[item.id]" class="track_item_wrap">
         <div
           v-for="(subItem, i) in createAudioTrackInfo[item.id].list"
           :key="i"
           class="track_item"
-          v-bind:class="[curTrack==item.id?'track_item--cur':'']"
+          v-bind:class="[curTrack==item.id && (curTrackIndex == i || curTrackIndex == 10000)?'track_item--cur':'']"
           v-bind:style="{ width: subItem.time * 240 + 'rpx',transform: 'translateX('+subItem.start * 240+'rpx)' }"
           out-of-bounds="false"
           direction="horizontal"
+          v-on:click="trackClick(item.id, i)"
           v-on:touchstart="touchstart($event,item.id, i)"
           v-on:touchmove="touchmove($event,item.id, i)"
           v-on:touchend="touchend($event,item.id, i)"
@@ -97,6 +98,7 @@ export default {
       animationData: {},
       ani: false,
       curTrack: "",
+      curTrackIndex: 10000,
       trackCount: 0,
       pauseCount: 0,
       paused: true,
@@ -132,7 +134,7 @@ export default {
   created: function(){
     console.log("created.....")
     this.createAudio();
-    
+
   },
   beforeUpdate(){
     console.log("beforeupdate:",globalStore.state.createAudioTrackInfo)
@@ -210,7 +212,7 @@ export default {
       let self = this;
       this.aniTimer && clearTimeout(this.aniTimer);
       setTimeout(() => {
-        
+
         if(!self.paused){
           self.translateX+= 24;
           self.animation();
@@ -249,7 +251,7 @@ export default {
       let self = this;
       console.log("create audio:", item)
       const innerAudioContext = wx.createInnerAudioContext()
-      
+
       innerAudioContext.onPlay(function(){
         //console.log("play start....")
       });
@@ -282,7 +284,7 @@ export default {
           self.pauseCount = 0;
           self.aniTimer && clearTimeout(typeof this.aniTimer === "object" ? this.aniTimer._id : this.aniTimer);
           self.endCount = 0;
-          
+
           return;
         }
 
@@ -299,9 +301,15 @@ export default {
 
       innerAudioContext.src = item.src;
     },
-    trackClick: function(id){
+    trackClick: function(id, index){
       this.curTrack = id;
       this.trackBtnShow = true;
+      if(typeof index !== "undefined"){
+        this.curTrackIndex = index;
+      } else {
+        // 点击整个条，index填个默认值10000
+        this.curTrackIndex = 10000;
+      }
     },
     copyClick: function(){
       let newAudio = Object.assign({},audioConfig[this.curTrack]);
@@ -312,10 +320,8 @@ export default {
       //globalStore.dispatch("addCreateAudioTrack", {id: this.curTrack, newAudio: newAudio });
     },
     deleteClick: function(){
-      
+
       let trackInfo = Object.assign({}, globalStore.state.createAudioTrackInfo);
-      this.trackCount = this.trackCount - trackInfo[this.curTrack].list.length;
-      delete trackInfo[this.curTrack];
       let trackType = globalStore.state.createAudioTypeInfo;
       let index = 0;
       trackType.forEach((item, idx) => {
@@ -323,9 +329,19 @@ export default {
           index = idx;
         }
       })
+      console.log("trackInfo :", trackInfo)
+      if(this.curTrackIndex === 10000){
+        this.trackCount = this.trackCount - trackInfo[this.curTrack].list.length;
+        globalStore.commit("deleteCreateAudioType", {index});
+        delete trackInfo[this.curTrack];
+        globalStore.commit("deleteCreateAudioTrack", { trackInfo });
+      } else {
+        this.trackCount = this.trackCount - 1;
+        trackInfo[this.curTrack].list.splice(this.curTrackIndex,1);
+        globalStore.commit("deleteCreateAudioTrack", { trackInfo });
+      }
+
       this.curTrack = "";
-      globalStore.commit("deleteCreateAudioType", {index});
-      globalStore.commit("deleteCreateAudioTrack", { trackInfo });
     },
     touchstart:function(e, id, index){
       this.touchStartX = e.clientX;
@@ -345,7 +361,7 @@ export default {
       console.log("pos start:",newAudio.start);
       console.log("touchx:", this.touchx)
       this.touchx = delta;
-      
+
       //this.x = e.x;
       globalStore.commit("updateCreateAudioTrack",{
         index,
@@ -355,7 +371,9 @@ export default {
 
     },
     touchend:function(e,id, index){
-      console.log("touchend: ",e)
+      if(!this.touchx){
+        return;
+      }
       this.posChange(id, index);
     },
     posChange: function(id, index){
@@ -369,7 +387,7 @@ export default {
       console.log("pos start:",newAudio.start);
       console.log("touchx:", this.touchx)
       this.touchx = 0;
-      
+
       //this.x = e.x;
       globalStore.commit("updateCreateAudioTrack",{
         index,
@@ -377,7 +395,7 @@ export default {
         newAudio
       })
 
-      
+
     },
     trackPosChange: function(e, id, index){
       // this.posTimer && clearTimeout(this.posTimer);
@@ -395,10 +413,10 @@ export default {
       //     id,
       //     newAudio
       //   })
-        
+
       // },20)
       this.touchx = e.x;
-      
+
     },
     topClick: function(){
       if(this.top<=-globalStore.state.createAudioTypeInfo.length*135){
