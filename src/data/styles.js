@@ -1,5 +1,10 @@
 export default [
   {
+    id: 6,
+    name: 'BBOX',
+    icon: '/static/style/bbox.png'
+  },
+  {
     id: 1,
     name: '氛围',
     icon: '/static/style/joker.png'
@@ -23,15 +28,5 @@ export default [
     id: 5,
     name: '长音乐',
     icon: '/static/style/cd.png'
-  },
-  {
-    id: 6,
-    name: 'bbox',
-    icon: '/static/style/bbox.png'
-  },
-  {
-    id: 7,
-    name: '乐器',
-    icon: '/static/style/music.png'
   }
 ];

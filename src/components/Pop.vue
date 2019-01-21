@@ -26,8 +26,8 @@ export default {
   data: function(){
     return {
       form: {
-        name: '神秘作品',
-        desc: '这是一个神秘作品'
+        name: '我的作品',
+        desc: '我的作品描述'
       }
     }
   },
