@@ -93,10 +93,12 @@ export default {
 }
 
 .nav-item:first-child{
+  padding-left: 10rpx;
   border-radius: 100rpx 0 0 100rpx;
 }
 
 .nav-item:last-child{
+  padding-right: 10rpx;
   border-radius: 0 100rpx 100rpx 0;
 }
 
