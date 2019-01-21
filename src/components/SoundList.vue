@@ -43,7 +43,9 @@ export default {
     sounds(){
       let lock = this.data.filter(sound => sound.isLock);
       let notLock = this.data.filter(sound => !sound.isLock);
-      return notLock.concat(lock);
+      let top = notLock.filter(sound => sound.isTop);
+      let bottom = notLock.filter(sound => !sound.isTop);
+      return top.concat(bottom, lock);
     },
     audioContext(){
       if(!this._audioContext){

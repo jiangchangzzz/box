@@ -1,44 +1,85 @@
 export default[
   {
     id: '0',
-    name: '非洲鼓',
-    desc: '非洲鼓非洲鼓非洲鼓非洲鼓非洲鼓',
+    name: '鸭狗合鸣',
+    desc: '这是一个魔性的作品',
     createAudioTrackInfo: {
-      '4466': {
+      '1132992': {
         list: [
           {
-            id: '4466',
-            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103003.mp3',
+            id: '1132992',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132992.mp3',
             time: 1,
-            name: "牛_1s",
-            start: 0,
-            icon: "../../../static/box.png",
-            type: 0,
-            isLock: false
+            name: "狗",
+            start: 3
+          }
+        ]
+      },
+      '1132994' : {
+        list: [
+          {
+            id: '1132994',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132994.mp3',
+            time: 1,
+            name: "马",
+            start: 7
+          }
+        ]
+      },
+      '1132996' : {
+        list: [
+          {
+            id: '1132996',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132996.mp3',
+            time: 1,
+            name: "鸭",
+            start: 0
           },
           {
-            id: '4466',
-            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103003.mp3',
+            id: '1132996',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132996.mp3',
             time: 1,
-            name: "牛_1s",
-            start: 2,
-            icon: "../../../static/box.png",
-            type: 0,
-            isLock: false
+            name: "鸭",
+            start: 1
+          },
+          {
+            id: '1132996',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132996.mp3',
+            time: 1,
+            name: "鸭",
+            start: 2
+          },
+          {
+            id: '1132996',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132996.mp3',
+            time: 1,
+            name: "鸭",
+            start: 4
+          },
+          {
+            id: '1132996',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132996.mp3',
+            time: 1,
+            name: "鸭",
+            start: 5
+          },
+          {
+            id: '1132996',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132996.mp3',
+            time: 1,
+            name: "鸭",
+            start: 6
           },
         ]
       },
-      '4468' : {
+      "1133008" : {
         list: [
           {
-            id: '4468',
-            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1103005.mp3',
-            time: 1,
-            name: "羊_1s",
-            start: 1,
-            icon: "../../../static/box.png",
-            type: 0,
-            isLock: false
+            id: '1133008',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133008.mp3',
+            time: 8,
+            name: "猫和老鼠",
+            start: 0
           }
         ]
       }
@@ -46,35 +87,86 @@ export default[
   },
   {
     id: '1',
-    name: '非洲鼓',
-    desc: '非洲鼓非洲鼓非洲鼓非洲鼓非洲鼓',
+    name: 'beatbox',
+    desc: '有点小厉害',
     createAudioTrackInfo: {
-      '1102845': {
+      "1133017" : {
         list: [
           {
-            id: "1102845",   // 随便写
-            src: "https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1102845.mp3",
-            time: 5,   // 时长
-            name: "架子鼓",   // 名称
+            id: '1133017',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133017.mp3',
+            time: 5,
+            name: "alpha_1",
             start: 0,
-            desc: "架子鼓",   // 描述
-            icon: "../../../static/1212.png",   // 封面图片
-            type: 0,
-            isLock: false
-          },
+          }
+        ]
+      },
+      "1133021" : {
+        list: [
           {
-            id: "1102845",   // 随便写
-            src: "https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1102845.mp3",
-            time: 5,   // 时长
-            name: "架子鼓",   // 名称
+            id: '1133021',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133021.mp3',
+            time: 5,
+            name: "alpha_5",
             start: 0,
-            desc: "架子鼓",   // 描述
-            icon: "../../../static/1212.png",   // 封面图片
-            type: 0,
-            isLock: false
+          }
+        ]
+      },
+      "1133021" : {
+        list: [
+          {
+            id: '1133021',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133021.mp3',
+            time: 5,
+            name: "alpha_5",
+            start: 0,
+          }
+        ]
+      },
+      '1133023' : {
+        list: [
+          {
+            id: '1133023',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133023.mp3',
+            time: 5,
+            name: "alpha_7",
+            start: 0
+          }
+        ]
+      },
+      '1133025': {
+        list: [
+          {
+            id: '1133025',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133025.mp3',
+            time: 5,
+            name: "alpha_9",
+            start: 0,
+          }
+        ]
+      },
+      '1133032': {
+        list: [
+          {
+            id: '1133032',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133032.mp3',
+            time: 5,
+            name: "alpha_16",
+            start: 0,
+          }
+        ]
+      },
+      '1133033': {
+        list: [
+          {
+            id: '1133033',
+            src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133033.mp3',
+            time: 5,
+            name: "alpha_17",
+            start: 0
           }
         ]
       }
     }
-  },
+  }
 ]
