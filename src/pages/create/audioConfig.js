@@ -465,22 +465,11 @@ export default {
     icon: "/static/2525.png",
     type: 0,
     style: 1,
-    isLock: false
-  },
-  '1' : {
-    id: '1',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1132999.mp3',
-    time: 1,
-    name: "真相只有一个",
-    start: 0,
-    icon: "/static/2525.png",
-    type: 0,
-    style: 1,
     isLock: true
   },
-  '1133000' : {
-    id: '1133000',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133000.mp3',
+  '1133918' : {
+    id: '1133918',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133918.mp3',
     time: 1,
     name: "大X4",
     start: 0,
@@ -489,9 +478,9 @@ export default {
     style: 3,
     isLock: false
   },
-  '1133001' : {
-    id: '1133001',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133001.mp3',
+  '1133919' : {
+    id: '1133919',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133919.mp3',
     time: 1,
     name: "马大爷X2",
     start: 0,
@@ -500,9 +489,9 @@ export default {
     style: 3,
     isLock: false
   },
-  '1133002' : {
-    id: '1133002',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133002.mp3',
+  '1133920' : {
+    id: '1133920',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133920.mp3',
     time: 1,
     name: "马X4",
     start: 0,
@@ -511,9 +500,9 @@ export default {
     style: 3,
     isLock: false
   },
-  '1133003' : {
-    id: '1133003',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133003.mp3',
+  '1133921' : {
+    id: '1133921',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133921.mp3',
     time: 1,
     name: "爷X4",
     start: 0,
@@ -522,9 +511,9 @@ export default {
     style: 3,
     isLock: false
   },
-  '1133004' : {
-    id: '1133004',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133004.mp3',
+  '1133922' : {
+    id: '1133922',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133922.mp3',
     time: 1,
     name: "最帅",
     start: 0,
@@ -533,9 +522,9 @@ export default {
     style: 3,
     isLock: false
   },
-  '1133005' : {
-    id: '1133005',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133005.mp3',
+  '1133923' : {
+    id: '1133923',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133923.mp3',
     time: 1,
     name: "balabiba",
     start: 0,
@@ -544,9 +533,9 @@ export default {
     style: 3,
     isLock: false
   },
-  '1133006' : {
-    id: '1133006',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133006.mp3',
+  '1133924' : {
+    id: '1133924',
+    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133924.mp3',
     time: 1,
     name: "skrskr",
     start: 0,
@@ -587,17 +576,6 @@ export default {
     type: 0,
     style: 5,
     isLock: false
-  },
-  '0' : {
-    id: '0',
-    src: 'https://y.gtimg.cn/music/common/upload/t_cm3_photo_publish/1133009.mp3',
-    time: 16,
-    name: "装甲兵进行曲",
-    start: 0,
-    icon: "/static/2525.png",
-    type: 0,
-    style: 5,
-    isLock: true
   },
   '1133010' : {
     id: '1133010',
