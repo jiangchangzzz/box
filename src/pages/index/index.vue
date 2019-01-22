@@ -6,16 +6,16 @@
     <div class="main">
       <ul class="main-list">
         <li class="list-item">
-          <a href="/pages/create/main"><img class="button-img-main" src="../../../static/Group 3 Copy.png"/></a>
+          <a href="/pages/create/main"><img class="button-img-main" src="../../../static/create.png"/></a>
         </li>
         <li class="list-item">
-          <a href="/pages/work/main"><img class="button-img-main" src="../../../static/Group 4 Copy.png"/></a>
+          <a href="/pages/work/main"><img class="button-img-main" src="../../../static/work.png"/></a>
         </li>
         <li class="list-item">
-          <a href="/pages/sound/main"><img class="button-img-other" src="../../../static/Group 5 Copy.png"/></a>
+          <a href="/pages/sound/main"><img class="button-img-other" src="../../../static/sound.png"/></a>
         </li>
         <li class="list-item">
-          <button class="list-button" open-type="share"><img class="button-img-other" src="../../../static/Group 6 Copy.png"/></button>
+          <button class="list-button" open-type="share"><img class="button-img-other" src="../../../static/share.png"/></button>
         </li>
       </ul>
     </div>
